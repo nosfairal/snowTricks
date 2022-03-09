@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -41,9 +43,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $picture;
 
     /**
-     * @ORM\Column(type="datetime_immutable", options: ["default" => "CURRENT_TIMESTAMP"])
+     * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="author")
+     */
+    private $tricks;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="author", orphanRemoval=true)
+     */
+    private $messages;
+
+    public function __construct()
+    {
+        $this->tricks = new ArrayCollection();
+        $this->messages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -154,6 +172,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Trick>
+     */
+    public function getTricks(): Collection
+    {
+        return $this->tricks;
+    }
+
+    public function addTrick(Trick $trick): self
+    {
+        if (!$this->tricks->contains($trick)) {
+            $this->tricks[] = $trick;
+            $trick->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrick(Trick $trick): self
+    {
+        if ($this->tricks->removeElement($trick)) {
+            // set the owning side to null (unless already changed)
+            if ($trick->getAuthor() === $this) {
+                $trick->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getAuthor() === $this) {
+                $message->setAuthor(null);
+            }
+        }
 
         return $this;
     }
