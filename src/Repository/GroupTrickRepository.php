@@ -45,6 +45,11 @@ class GroupTrickRepository extends ServiceEntityRepository
         }
     }
 
+    /*public function show()
+    {
+        $this->_em->findAll();
+    }*/
+
     // /**
     //  * @return GroupTrick[] Returns an array of GroupTrick objects
     //  */
