@@ -29,7 +29,7 @@
                             <p class="card-text text-muted">{{ trick.slug }}</p>
                             {#<p class="card-text text">{{ trick.author }}</p>#}
                             <div class="card-body">
-                                {{ trick.description }}
+                                <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}">
                             </div>
                             <div class="card-footer text-muted">
                                 {#<p>Publié le : {{ attribute.creationDate|date("d/m/Y \\à H:i") }}</p>

@@ -10,7 +10,7 @@
 
 <div class="example-wrapper">
    {% for trick in tricks %}
-            <p>{{ trick.name }}</p></br>
+            <p>{{ trick.name }}</p> <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}"></br>
         {% endfor %}
 </div>
 {% endblock %}

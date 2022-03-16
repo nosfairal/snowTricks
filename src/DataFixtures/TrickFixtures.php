@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Trick;
 use App\Entity\User;
+use App\Entity\GroupTrick;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -12,6 +13,16 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class TrickFixtures extends Fixture implements DependentFixtureInterface
 {
+    public const TRICK_BLOODY_DRACULA = 'bloody_dracula';
+    public const TRICK_CHICKEN_SALAD = 'chicken_salad';
+    public const TRICK_TAIL_BLOCK = 'tail_block';
+    public const TRICK_WILDCAT = 'wildcat';
+    public const TRICK_FRONTSIDE_RODEO = 'frontside_rodeo';
+    public const TRICK_MC_TWIST = 'mc_twist';
+    public const TRICK_QUAD_CORK_1800 = 'quad_cork_1800';
+    public const TRICK_NOSEPRESS = 'nosepress';
+    public const TRICK_GUTTERBALL = 'gutterball';
+    public const TRICK_AIR_TO_FAKIE = 'air_to_fakie';
     protected $slugger;
 
     public function __construct(SluggerInterface $slugger)
@@ -21,20 +32,6 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-        $trick = new Trick();
-        $trick->setName('Backside Air');
-        $trick->setDescription('On commence tout simplement avec LE trick. Les mauvaises langues prétendent qu’un backside air suffit à reconnaître ceux qui savent snowboarder. Si c’est vrai, alors Nicolas Müller est le meilleur snowboardeur du monde. Personne ne sait s’étirer aussi joliment, ne demeure aussi zen, n’est aussi provocant dans la jouissance.');
-        $trick->setCreatedAt(new DateTimeImmutable('2022-03-03 09:40:00'));
-        $trick->setSlug(strtolower($this->slugger->slug($trick->getName())));
-        // this reference returns the User object created in UserFixtures
-        $author = $this->getReference(UserFixtures::USER_FRANCOIS);
-        $trick->setAuthor($author);
-
-        // this reference returns the Group object created in GroupFixtures
-        $trick->setGroupTrick($this->getReference(GroupTrickFixtures::GROUPTRICK_GRAB));
-
-
-        $manager->persist($trick);
 
         $trick = new Trick();
         $trick->setName('Bloody Dracula');
@@ -49,6 +46,8 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
 
 
         $manager->persist($trick);
+        // other fixtures can get this object using the TrickFixtures::TRICK_BLOODY_DRACULA constant
+        $this->addReference(self::TRICK_BLOODY_DRACULA, $trick);
 
         $trick = new Trick();
         $trick->setName('Chicken Salad');
@@ -63,50 +62,9 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
 
 
         $manager->persist($trick);
+        // other fixtures can get this object using the TrickFixtures::TRICK_CHICKEN_SALAD constant
+        $this->addReference(self::TRICK_CHICKEN_SALAD, $trick);
 
-        $trick = new Trick();
-        $trick->setName('Drunk Driver');
-        $trick->setDescription("Semblable à un Truck Driver, il s'agit d'un Stalefish Grab et d'un Mute Grab effectuée en même temps.");
-        $trick->setCreatedAt(new DateTimeImmutable('2022-03-29 17:46:00'));
-        $trick->setSlug(strtolower($this->slugger->slug($trick->getName())));
-        // this reference returns the User object created in UserFixtures
-        $trick->setAuthor($this->getReference(UserFixtures::USER_NOVA));
-
-        // this reference returns the Group object created in GroupFixtures
-        $trick->setGroupTrick($this->getReference(GroupTrickFixtures::GROUPTRICK_GRAB));
-
-
-        $manager->persist($trick);
-
-
-        $trick = new Trick();
-        $trick->setName('Roast Beef');
-        $trick->setDescription("La main arrière atteint entre les jambes et saisit le bord du talon entre les fixations tandis que la jambe arrière est désossée.");
-        $trick->setCreatedAt(new DateTimeImmutable('2022-03-29 17:47:00'));
-        $trick->setSlug(strtolower($this->slugger->slug($trick->getName())));
-        // this reference returns the User object created in UserFixtures
-        $trick->setAuthor($this->getReference(UserFixtures::USER_FRANCOIS));
-
-        // this reference returns the Group object created in GroupFixtures
-        $trick->setGroupTrick($this->getReference(GroupTrickFixtures::GROUPTRICK_GRAB));
-
-
-        $manager->persist($trick);
-
-
-        $trick = new Trick();
-        $trick->setName('Tail-Grab');
-        $trick->setDescription("La main arrière attrape la queue du snowboard. Les variations incluent le redressement, ou le « désossage » de la jambe avant, ou le « réglage » de la planche légèrement à l'avant ou à l'arrière.");
-        $trick->setCreatedAt(new DateTimeImmutable('2022-03-29 17:49:00'));
-        $trick->setSlug(strtolower($this->slugger->slug($trick->getName())));
-        // this reference returns the User object created in UserFixtures
-        $trick->setAuthor($this->getReference(UserFixtures::USER_JEANNE));
-
-        // this reference returns the Group object created in GroupFixtures
-        $trick->setGroupTrick($this->getReference(GroupTrickFixtures::GROUPTRICK_GRAB));
-
-
-        $manager->persist($trick);
 
 
         $trick = new Trick();
@@ -122,6 +80,8 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
 
 
         $manager->persist($trick);
+        // other fixtures can get this object using the TrickFixtures::TRICK_TAIL_BLOCK constant
+        $this->addReference(self::TRICK_TAIL_BLOCK, $trick);
 
         $trick = new Trick();
         $trick->setName('Wildcat');
@@ -136,35 +96,8 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
 
 
         $manager->persist($trick);
-
-        $trick = new Trick();
-        $trick->setName('Backflip');
-        $trick->setDescription("Retourner en arrière (comme un backflip debout) après un saut.");
-        $trick->setCreatedAt(new DateTimeImmutable('2022-03-14 15:56:00'));
-        $trick->setSlug(strtolower($this->slugger->slug($trick->getName())));
-        // this reference returns the User object created in UserFixtures
-        $trick->setAuthor($this->getReference(UserFixtures::USER_FRANCOIS));
-
-        // this reference returns the Group object created in GroupFixtures
-        $trick->setGroupTrick($this->getReference(GroupTrickFixtures::GROUPTRICK_FLIP));
-
-
-        $manager->persist($trick);
-
-
-        $trick = new Trick();
-        $trick->setName('Tamedog');
-        $trick->setDescription("Un frontflip effectué sur un saut droit, avec un axe de rotation dans lequel le snowboarder effectue un flip vers l'avant, comme une roue de charrette.");
-        $trick->setCreatedAt(new DateTimeImmutable('2022-03-14 16:12:00'));
-        $trick->setSlug(strtolower($this->slugger->slug($trick->getName())));
-        // this reference returns the User object created in UserFixtures
-        $trick->setAuthor($this->getReference(UserFixtures::USER_NOVA));
-
-        // this reference returns the Group object created in GroupFixtures
-        $trick->setGroupTrick($this->getReference(GroupTrickFixtures::GROUPTRICK_FLIP));
-
-
-        $manager->persist($trick);
+        // other fixtures can get this object using the TrickFixtures::TRICK_WILDCAT constant
+        $this->addReference(self::TRICK_WILDCAT, $trick);
 
 
         $trick = new Trick();
@@ -180,6 +113,8 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
 
 
         $manager->persist($trick);
+        // other fixtures can get this object using the TrickFixtures::TRICK_FRONTSIDE_RODEO constant
+        $this->addReference(self::TRICK_FRONTSIDE_RODEO, $trick);
 
 
         $trick = new Trick();
@@ -195,6 +130,8 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
 
 
         $manager->persist($trick);
+        // other fixtures can get this object using the TrickFixtures::TRICK_MC_TWIST constant
+        $this->addReference(self::TRICK_MC_TWIST, $trick);
 
 
         $trick = new Trick();
@@ -210,21 +147,9 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
 
 
         $manager->persist($trick);
+        // other fixtures can get this object using the TrickFixtures::TRICK_QUAD_CORK_1800 constant
+        $this->addReference(self::TRICK_QUAD_CORK_1800, $trick);
 
-
-        $trick = new Trick();
-        $trick->setName('Bluntslide');
-        $trick->setDescription("Une glissade effectuée lorsque le pied avant du rider passe sur le rail à l'approche, avec son snowboard se déplaçant perpendiculairement et le pied arrière directement au-dessus du rail ou d'un autre obstacle (comme un tailslide). Lors de l'exécution d'un frontside bluntslide, le snowboarder fait face à la montée. Lors de l'exécution d'un backside bluntslide, le snowboarder fait face à la descente.");
-        $trick->setCreatedAt(new DateTimeImmutable('2022-03-08 10:31:00'));
-        $trick->setSlug(strtolower($this->slugger->slug($trick->getName())));
-        // this reference returns the User object created in UserFixtures
-        $trick->setAuthor($this->getReference(UserFixtures::USER_FRANCOIS));
-
-        // this reference returns the Group object created in GroupFixtures
-        $trick->setGroupTrick($this->getReference(GroupTrickFixtures::GROUPTRICK_SLIDE));
-
-
-        $manager->persist($trick);
 
         $trick = new Trick();
         $trick->setName('Nosepress');
@@ -238,6 +163,8 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
         $trick->setGroupTrick($this->getReference(GroupTrickFixtures::GROUPTRICK_SLIDE));
 
         $manager->persist($trick);
+        // other fixtures can get this object using the TrickFixtures::TRICK_NOSEPRESS constant
+        $this->addReference(self::TRICK_NOSEPRESS, $trick);
 
         $trick = new Trick();
         $trick->setName('Gutterball');
@@ -252,36 +179,9 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
 
 
         $manager->persist($trick);
+        // other fixtures can get this object using the TrickFixtures::TRICK_GUTTERBALL constant
+        $this->addReference(self::TRICK_GUTTERBALL, $trick);
 
-
-        $trick = new Trick();
-        $trick->setName('Lipslide');
-        $trick->setDescription("Un slide effectué lorsque le pied arrière du rider passe sur le rail à l'approche, avec son snowboard se déplaçant perpendiculairement le long du rail ou d'un autre obstacle. Lors de l'exécution d'un lipslide frontside, le snowboarder fait face à la descente. Lors de l'exécution d'un lipslide arrière, un snowboarder fait face à la montée.");
-        $trick->setCreatedAt(new DateTimeImmutable('2022-03-29 18:00:00'));
-        $trick->setSlug(strtolower($this->slugger->slug($trick->getName())));
-        // this reference returns the User object created in UserFixtures
-        $trick->setAuthor($this->getReference(UserFixtures::USER_FRANCOIS));
-
-        // this reference returns the Group object created in GroupFixtures
-        $trick->setGroupTrick($this->getReference(GroupTrickFixtures::GROUPTRICK_SLIDE));
-
-
-        $manager->persist($trick);
-
-
-        $trick = new Trick();
-        $trick->setName('Shifty');
-        $trick->setDescription("Un Shifty est un trick aérien dans lequel un snowboarder fait contre-rotation avec le haut de son corps afin de déplacer sa planche d'environ 90° par rapport à sa position normale sous lui, puis ramène la planche à sa position d'origine avant d'atterrir. Ce tour peut être réalisé en frontside ou backside, mais aussi en variation avec d'autres tricks and spins.");
-        $trick->setCreatedAt(new DateTimeImmutable('2022-03-08 10:55:00'));
-        $trick->setSlug(strtolower($this->slugger->slug($trick->getName())));
-        // this reference returns the User object created in UserFixtures
-        $trick->setAuthor($this->getReference(UserFixtures::USER_FRANCOIS));
-
-        // this reference returns the Group object created in GroupFixtures
-        $trick->setGroupTrick($this->getReference(GroupTrickFixtures::GROUPTRICK_STRAIGHT_AIR));
-
-
-        $manager->persist($trick);
 
         $trick = new Trick();
         $trick->setName('Air-to-Fakie');
@@ -296,24 +196,10 @@ class TrickFixtures extends Fixture implements DependentFixtureInterface
 
 
         $manager->persist($trick);
-
-
-        $trick = new Trick();
-        $trick->setName('Poptart');
-        $trick->setDescription("Diffusion du fakie vers l'avant sur un quarterpipe ou un halfpipe sans rotation.");
-        $trick->setCreatedAt(new DateTimeImmutable('2022-03-14 16:21:00'));
-        $trick->setSlug(strtolower($this->slugger->slug($trick->getName())));
-        // this reference returns the User object created in UserFixtures
-        $trick->setAuthor($this->getReference(UserFixtures::USER_FRANCOIS));
-
-        // this reference returns the Group object created in GroupFixtures
-        $trick->setGroupTrick($this->getReference(GroupTrickFixtures::GROUPTRICK_STRAIGHT_AIR));
-
-
-        $manager->persist($trick);
-
+        // other fixtures can get this object using the TrickFixtures::TRICK_AIR_TO_FAKIE constant
+        $this->addReference(self::TRICK_AIR_TO_FAKIE, $trick);
+        
         $manager->flush();
-
         
     }
 

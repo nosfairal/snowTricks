@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\Trick;
 use App\Repository\PictureRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,7 +33,7 @@ class Picture
     private $filename;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="pictures")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="pictures", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
