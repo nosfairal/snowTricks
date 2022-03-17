@@ -23,7 +23,7 @@
             <div class ="">
                 <div class="row justify-content-around text-center">
         {% for trick in tricks %}
-                    <div class="card  m-4 col-8 col-lg-2 w-20">
+                    <a href="{{ path('show-trick', {'slug': trick.slug}) }}" class="card  m-4 col-8 col-lg-2 w-20 text-decoration-none">
                         <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}"class="card-img-top p-1 card-trick-picture img-fluid">
                         <div class="card-body">
                             <h5 class="card-title">{{ trick.name }}</h5>
@@ -37,7 +37,7 @@
                                 {% if attribute.lastUpdate  is not null %}<p>Dernière modification le : {{ attribute.lastUpdate|date("d/m/Y \\à H:i") }}</p>{% endif %}#}
                             </div>
                         </div>
-                    </div>
+                    </a>
         {% endfor %}
                 </div>
             </div>        
