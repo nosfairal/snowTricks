@@ -14,7 +14,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
     $video = new Video();
-        $video->setTitle('Bloddy Dracula Video');
+        $video->setTitle('Bloddy Dracula video');
         $video->setVideoUrl('https://www.youtube.com/embed/UU9iKINvlyU');
 
         // this reference returns the Group object created in GroupFixtures
@@ -24,7 +24,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($video);
 
         $video = new Video();
-        $video->setTitle('Chicken Salad Video');
+        $video->setTitle('Chicken Salad video');
         $video->setVideoUrl('https://www.youtube.com/embed/TTgeY_XCvkQ');
 
         // this reference returns the Group object created in GroupFixtures
@@ -34,7 +34,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
 
 
         $video = new Video();
-        $video->setTitle('Tail-block Video');
+        $video->setTitle('Tail-block video');
         $video->setVideoUrl('https://www.youtube.com/embed/jPAsCuoRvoY');
 
         // this reference returns the Group object created in GroupFixtures
@@ -44,7 +44,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($video);
 
         $video = new Video();
-        $video->setTitle('Wildcat Video');
+        $video->setTitle('Wildcat video');
         $video->setVideoUrl('https://www.youtube.com/embed/7KUpodSrZqI');
 
         // this reference returns the Group object created in GroupFixtures
@@ -54,7 +54,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($video);
 
         $video = new Video();
-        $video->setTitle('Frontside Rodeo Video');
+        $video->setTitle('Frontside Rodeo video');
         $video->setVideoUrl('https://www.youtube.com/embed/vf9Z05XY79A');
 
         // this reference returns the Group object created in GroupFixtures
@@ -64,7 +64,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($video);
 
         $video = new Video();
-        $video->setTitle('Mc Twist Video');
+        $video->setTitle('Mc Twist video');
         $video->setVideoUrl('https://www.youtube.com/embed/k-CoAquRSwY');
 
         // this reference returns the Group object created in GroupFixtures
@@ -74,7 +74,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($video);
 
         $video = new Video();
-        $video->setTitle('Quad Cork 1800 Video');
+        $video->setTitle('Quad Cork 1800 video');
         $video->setVideoUrl('https://www.youtube.com/embed/pM_6bfQfDnw');
 
         // this reference returns the Group object created in GroupFixtures
@@ -84,7 +84,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($video);
 
         $video = new Video();
-        $video->setTitle('Nosepress Video');
+        $video->setTitle('Nosepress video');
         $video->setVideoUrl('https://www.youtube.com/embed/Px2YuKQVS_g');
 
         // this reference returns the Group object created in GroupFixtures
@@ -94,7 +94,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($video);
 
         $video = new Video();
-        $video->setTitle('Gutterball Video');
+        $video->setTitle('Gutterball video');
         $video->setVideoUrl('https://www.youtube.com/embed/o_r-AuMbxz8');
 
         // this reference returns the Group object created in GroupFixtures
@@ -105,7 +105,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
 
 
         $video = new Video();
-        $video->setTitle('Air-to-Fakie Video');
+        $video->setTitle('Air-to-Fakie video');
         $video->setVideoUrl('"https://www.youtube.com/embed/2fP_R0tXFAc');
 
         // this reference returns the Group object created in GroupFixtures
