@@ -28,7 +28,7 @@ class Video
     private $videoUrl;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="videos")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="videos", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
