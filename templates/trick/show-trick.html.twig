@@ -1,16 +1,69 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="card  m-4 col-8 col-lg-4">
-        <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}"class="card-img-top p-1 img-fluid">
-        <div class="card-body text-center">
-            <h5 class="card-title">{{ trick.name }}</h5>
-            <p class="card-text text-muted">{{ trick.slug }}</p>
-            {#<p class="card-text text">{{ trick.author }}</p>#}
-            <div class="card-footer text-muted">
-                {#<p>Publié le : {{ attribute.creationDate|date("d/m/Y \\à H:i") }}</p>
-                <p>Rédigé par : {{ author }}</p>
-                {% if attribute.lastUpdate  is not null %}<p>Dernière modification le : {{ attribute.lastUpdate|date("d/m/Y \\à H:i") }}</p>{% endif %}#}
+    <div class="row">
+        <div class="card  mx-auto col-12 col-lg-9 w-50 mb-2">
+            <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}"class="card-img-top p-2 img-fluid">
+            <div class="card-body text-center">
+                <h5 class="card-title">{{ trick.name }}</h5>
+                <hr class="my-3"/>
+                <p class="card-text text-muted"> Publié par : {{ trick.author.userName }} | le : {{ trick.createdAt|date("d/m/Y \\à H:i") }} | Catégorie : {{ trick.groupTrick.name }} | 0 commentaires</p>
+                    {#{% if attribute.lastUpdate  is not null %}<p>Dernière modification le : {{ attribute.lastUpdate|date("d/m/Y \\à H:i") }}</p>{% endif %}#}
+                <hr class="my-3"/>
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div id="carousel" class="carousel slide mt-3 mb-2" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target=".carousel" data-slide-to="0" class="active"></li>
+                                <li data-target=".carousel" data-slide-to="1" class=""></li>
+                                <li data-target=".carousel" data-slide-to="2" class=""></li>
+                                <li data-target=".carousel" data-slide-to="3" class=""></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img class="w-100 img-fluid trickMedia" src="{{ asset ('uploads/pictures/' ~ trick.pictures[1].fileName) }}" alt="nosepress-image-7">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="w-100 img-fluid" src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}" alt="nosepress-image-49">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="w-100 img-fluid" src="{{ asset ('uploads/pictures/' ~ trick.pictures[1].fileName) }}" alt="nosepress-image-50">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="w-100 img-fluid" src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}" alt="nosepress-image-51">
+                                </div>
+                                        
+                            </div>
+                            <a class="carousel-control-prev" href="#carousel" data-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </a>
+                            <a class="carousel-control-next" href="#carousel" data-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </a> 
+                        </div>
+                    </div>                                          
+                    <div class="col-lg-6 col-md-12">
+                        <div id="carousel-v" class="carousel slide mt-3 mb-2" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-v" data-slide-to="0" class="active"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item  active ">
+                                    <iframe class="w-100 trickMedia" src="https://www.youtube.com/embed/Px2YuKQVS_g" allowfullscreen=""></iframe>
+                                </div>                                        
+                            </div>
+                            <a class="carousel-control-prev" href="#carousel-v" data-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </a>
+                            <a class="carousel-control-next" href="#carousel-v" data-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </a> 
+                        </div>
+                    </div>
+                </div>  
+                <hr class="my-3"/>
+                <h5 class="card-title">Description</h5>
+                <p class="card-text text mb-2">{{ trick.description }}</p>                                        
             </div>
         </div>
     </div>
