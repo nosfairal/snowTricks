@@ -3,45 +3,23 @@
 {% block title %}Bienvenue sur Snowtricks!{% endblock %}
 
 {% block content %}
-{#<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/snowTricks/src/Controller/MainController.php'|file_link(0) }}">src/Controller/MainController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/snowTricks/templates/main/index.html.twig'|file_link(0) }}">templates/main/index.html.twig</a></code></li>
-    </ul>
-</div>#}
+    <div class="container">
     <h1 class="text-center">Bienvenue sur Snowtricks</h1>
-    <div class="example-wrapper">
-        
-            <div class ="">
-                <div class="row justify-content-around text-center">
+    <div class="row justify-content-around text-center">
         {% for trick in tricks %}
-                    <a href="{{ path('show-trick', {'slug': trick.slug}) }}" class="card  m-4 col-8 col-lg-2 w-20 text-decoration-none">
-                        <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}"class="card-img-top p-1 card-trick-picture img-fluid">
+                    <a href="{{ path('show-trick', {'slug': trick.slug}) }}" class="card  m-4 col-9 col-lg-3 text-decoration-none">
+                        <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}"class="card-img-top card-trick-picture img-fluid">
                         <div class="card-body">
                             <h5 class="card-title">{{ trick.name }}</h5>
-                            <p class="card-text text-muted">{{ trick.slug }}</p>
-                            {#<p class="card-text text">{{ trick.author }}</p>#}
                             <div class="card-footer text-muted">
                                 <i class="bi bi-pencil-fill"></i>
                                 <i class="bi bi-trash-fill"></i>
-                                {#<p>Publié le : {{ attribute.creationDate|date("d/m/Y \\à H:i") }}</p>
-                                <p>Rédigé par : {{ author }}</p>
-                                {% if attribute.lastUpdate  is not null %}<p>Dernière modification le : {{ attribute.lastUpdate|date("d/m/Y \\à H:i") }}</p>{% endif %}#}
                             </div>
                         </div>
                     </a>
         {% endfor %}
-                </div>
-            </div>        
-        
     </div>
+    </div>
+
 
 {% endblock %}

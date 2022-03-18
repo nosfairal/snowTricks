@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
+use App\Form\TrickType;
 use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,5 +40,17 @@ class TrickController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/nouveau", name="new-trick")
+     */
+    public function new(): Response
+    {
+        $trick = new Trick;
+        $form = $this->createForm(TrickType::class);
+        return $this->render('trick/new.html.twig', [
+            'trick' => $trick,
+            'form' => $form->createView()
+        ]);
+    }
     
 }

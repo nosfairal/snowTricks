@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Ajouter un nouveau trick {% endblock %}
+
+
+{% block content %}
+    <div class="container-fluid text-center mt-3 px-4">
+        <p class="pt-4">
+            Vous avez ici la possibilité d'ajouter un nouveau trick en complétant tous les champs de ce formulaire.
+        </p>
+        <div class="py-1">
+            {{ form_start(form) }}
+            <div class="row my-1">
+                <div class="col">
+                    {{ form_label(form.name) }}{{ form_widget(form.name) }}
+                </div>
+            </div>
+            <div class="row my-1">
+                <div class="col" id="">
+                    {{ form_label(form.groupTrick) }}{{ form_widget(form.groupTrick) }}
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col" id="">
+                    {{ form_label(form.description) }}{{ form_widget(form.description) }}
+                </div>
+            </div>
+
+            <div class="my-4">
+                {{ form_row(form.submit) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+        </div>
+{% endblock %}

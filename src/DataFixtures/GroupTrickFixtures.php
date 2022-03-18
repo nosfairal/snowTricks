@@ -82,14 +82,6 @@ class GroupTrickFixtures extends Fixture
         $this->addReference(self::GROUPTRICK_SLIDE, $groupTrick);
 
         $groupTrick = new GroupTrick();
-        $groupTrick->setName('Autres');
-        $groupTrick->setSlug(strtolower($this->slugger->slug($groupTrick->getName())));
-        
-        $manager->persist($groupTrick);
-        // other fixtures can get this object using the GroupTrickFixtures::GROUPTRICK_AUTRES constant
-        $this->addReference(self::GROUPTRICK_AUTRES, $groupTrick);
-
-        $groupTrick = new GroupTrick();
         $groupTrick->setName('Tweaks et variations');
         $groupTrick->setSlug(strtolower($this->slugger->slug($groupTrick->getName())));
         
@@ -104,6 +96,14 @@ class GroupTrickFixtures extends Fixture
         $manager->persist($groupTrick);
         // other fixtures can get this object using the GroupTrickFixtures::GROUPTRICK_INVERTED_HAND_PLANT constant
         $this->addReference(self::GROUPTRICK_INVERTED_HAND_PLANT, $groupTrick);
+
+        $groupTrick = new GroupTrick();
+        $groupTrick->setName('Autres');
+        $groupTrick->setSlug(strtolower($this->slugger->slug($groupTrick->getName())));
+        
+        $manager->persist($groupTrick);
+        // other fixtures can get this object using the GroupTrickFixtures::GROUPTRICK_AUTRES constant
+        $this->addReference(self::GROUPTRICK_AUTRES, $groupTrick);
 
         $manager->flush();
 
