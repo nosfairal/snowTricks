@@ -19,8 +19,12 @@ class PictureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class, [
-                'attr' => ['placeholder' => "Titre de l'image"],
+            ->add("titre", TextType::class, [
+                'attr' => [
+                    'label' => "Titre de l'image",
+                    'placeholder' => "Titre de l'image",
+                    'class' => 'form-control'
+                ],
                 'constraints' => [
                     new Length([
                         'min' => 3,
@@ -34,7 +38,11 @@ class PictureType extends AbstractType
                 ]
             ])
             ->add('description', TextType::class, [
-                'attr' => ['placeholder' => "Courte description de l'image"],
+                'attr' => [
+                    'placeholder' => "Courte description de l'image",
+                    'label' => 'Description : ',
+                    'class' => 'form-control'
+                ],
                 'constraints' => [
                     new Length([
                         'min' => 3,
@@ -48,9 +56,12 @@ class PictureType extends AbstractType
                 ]
             ])
             ->add('filename', FileType::class, [
-                'label' => 'Image file (.jpg, .jpeg, .png) - 2Mo max',
+                'label' => "Image d'illustration (formats acceptés : .jpg, .jpeg, .png / taille max - 2Mo max) : ",
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ],
                 // make it optional so you don't have to re-upload the file
                 // every time you edit the Picture details
                 // 'required' => false,

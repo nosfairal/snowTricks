@@ -15,14 +15,17 @@ class VideoType extends AbstractType
     {
         $builder
             ->add('caption', TextType::class, [
-                'label' => 'Caption',
-                'attr' => ['placeholder' => 'Enter the name of the video']
+                'label' => 'Titre de la video : ',
+                'attr' => ['placeholder' => 'Entrez le nom de la video',
+                'class' => 'form-control'
+            ],
             ])
             ->add('videoUrl', UrlType::class, [
-                'label' => 'Videos',
-                'help' => 'If you want to post multiple videos, press the button as many times as needed',
+                'label' => 'Lien de partage de la video : ',
+                'help' => 'Si vous voulez entrer plusieurs vidéos, appuyez autant de fois que désirer sur le bouton',
                 'attr' => [
-                    'placeholder' => 'Add a valid URL to put a video for the trick'
+                    'placeholder' => 'Entrez une adresse URL valide pour partager la video',
+                    'class' => 'form-control'
                 ]
             ]);
     }
