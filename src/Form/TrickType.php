@@ -46,13 +46,24 @@ class TrickType extends AbstractType
                     'class' => 'form-select'
                 ],
             ])
-            /*->add('pictures', CollectionType::class, [
-                'label' => 'Images du trick : ',
-                'required' => true,
-                'attr' => [
-                    'class' => 'form-control'
+            ->add('pictures', CollectionType::class, [
+                'entry_type' => PictureType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+                'allow_delete' => true,
+                'mapped' => false
+            ])
+            ->add('videos', CollectionType::class, [
+                'entry_options' => [
+                    'label' => false
                 ],
-                  ])*/
+                'allow_add' => true,
+                'allow_delete' => true,
+                'label' => false,
+                'mapped' => false,
+                'entry_type' => VideoType::class
+            ])
             ->add('submit', SubmitType::class, [
                 'label'=>'Ajouter un nouveau trick',
                 'attr' => [
