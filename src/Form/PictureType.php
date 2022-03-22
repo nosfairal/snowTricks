@@ -19,7 +19,7 @@ class PictureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add("titre", TextType::class, [
+            ->add("title", TextType::class, [
                 'attr' => [
                     'label' => "Titre de l'image",
                     'placeholder' => "Titre de l'image",

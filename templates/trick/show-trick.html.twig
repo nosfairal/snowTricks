@@ -22,13 +22,13 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img class="w-100 img-fluid trickMedia" src="{{ asset ('uploads/pictures/' ~ trick.pictures[1].fileName) }}" alt="nosepress-image-7">
+                                    <img class="w-100 img-fluid trickMedia" src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}" alt="nosepress-image-7">
                                 </div>
                                 <div class="carousel-item">
                                     <img class="w-100 img-fluid" src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}" alt="nosepress-image-49">
                                 </div>
                                 <div class="carousel-item">
-                                    <img class="w-100 img-fluid" src="{{ asset ('uploads/pictures/' ~ trick.pictures[1].fileName) }}" alt="nosepress-image-50">
+                                    <img class="w-100 img-fluid" src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}" alt="nosepress-image-50">
                                 </div>
                                 <div class="carousel-item">
                                     <img class="w-100 img-fluid" src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}" alt="nosepress-image-51">
@@ -50,7 +50,7 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="carousel-item  active ">
-                                    <iframe class="w-100 trickMedia" src="{{ trick.videos[0].videoUrl }}" allowfullscreen=""></iframe>
+                                    <iframe class="w-100 trickMedia" src="{{ trick.videos[0].videoUrl | formatVideo }}" allowfullscreen=""></iframe>
                                 </div>                                        
                             </div>
                             <a class="carousel-control-prev" href="#carousel-v" data-slide="prev">
