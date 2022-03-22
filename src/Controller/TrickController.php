@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Trick;
 use App\Entity\Picture;
+use App\Entity\Video;
 use App\Form\TrickType;
 use App\Form\PictureType;
 use App\Repository\TrickRepository;
+use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -77,9 +79,9 @@ class TrickController extends AbstractController
             /**@var \App\Entity\User $user */
             $user = $this->getUser();
 
-            $trick->setUser($user);
+            $trick->setAuthor($user);
 
-            $trick->setCreatedAt(new DateTime());
+            $trick->setCreatedAt(new DateTimeImmutable());
 
 
             $pictureForms = $form->get('pictures');
@@ -90,7 +92,7 @@ class TrickController extends AbstractController
 
 
                 /** @var UploadedFile $pictureFile */
-                $pictureFile = $pictureForm->get('fileName')->getData();
+                $pictureFile = $pictureForm->get('filename')->getData();
                 $pictureFileName = uniqid() . '.' . $pictureFile->guessExtension();
 
                 $picture = $pictureForm->getData();
@@ -104,6 +106,7 @@ class TrickController extends AbstractController
                 $trickPicture->setFilename($pictureFileName);
                 $trick->addPicture($trickPicture);
                 $trickPicture->setTitle($picture->getTitle());
+                $trickPicture->setDescription($picture->getDescription());
                 $trickPicture->setTrick($trick);
                 //$trickPicture->setDisplayOrder($pictureFileCount++);
                 $em->persist($trickPicture);
@@ -128,9 +131,7 @@ class TrickController extends AbstractController
             $flashBag->add('success', "Le trick a bien été créé !");
 
             // Génération URL + redirection
-            return $this->redirectToRoute('trick_home', [
-                '_fragment' => 'trick-section'
-            ]);
+            return $this->redirectToRoute('home');
         }
 
 
@@ -143,17 +144,17 @@ class TrickController extends AbstractController
         ]);
     }
 
-    protected function embedPictureForms($form, Trick $trick): void
+    /*protected function embedPictureForms($form, Trick $trick): void
     {
         $pictureForms = $form->get('pictures');
 
         // Embed pictures forms
         foreach ($pictureForms as $pictureForm) {
             /** @var Picture $picture */
-            $picture = $pictureForm->getData();
+            /*$picture = $pictureForm->getData();
 
             /** @var UploadedFile $pictureFile */
-            $pictureFile = $pictureForm->get('filename')->getData();
+            /*$pictureFile = $pictureForm->get('filename')->getData();
 
             // this condition is needed because the 'filename' field is not required
             // so the image file must be processed only when a file is uploaded
@@ -162,6 +163,6 @@ class TrickController extends AbstractController
                 $this->dispatcher->dispatch(new FileUpdateEvent($picture, $pictureFile), $event);
             }
         }
-    }
+    }*/
     
 }
