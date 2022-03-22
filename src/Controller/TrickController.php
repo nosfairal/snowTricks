@@ -64,13 +64,13 @@ class TrickController extends AbstractController
 
         $trick = new Trick();
 
-        // Construction du formulaire à l'aide du TrickType
+        // Construction of form with TrickType
         $form = $this->createForm(TrickType::class, $trick);
 
         // Gestion de la saisie du formulaire
         $form->handleRequest($request);
 
-        // Verification de la soumission et validité du formulaire
+        // Verify validity of form
         if ($form->isSubmitted() && $form->isValid()) {
 
 
@@ -96,7 +96,7 @@ class TrickController extends AbstractController
                 $pictureFileName = uniqid() . '.' . $pictureFile->guessExtension();
 
                 $picture = $pictureForm->getData();
-                // Copie du fichier dans le dossier upload/picture
+                // Copy file in uploads/pictures
                 $pictureFile->move(
                     $this->getParameter('pictures_directory'),
                     $pictureFileName
@@ -121,7 +121,7 @@ class TrickController extends AbstractController
                 $trickVideo->setTrick($trick);
                 $em->persist($trickVideo);
             }
-            // Préparation des données recueillies et injection dans la bdd
+            // Prepare data and recording
             $em->persist($trick);
             $em->flush();
 
@@ -130,12 +130,12 @@ class TrickController extends AbstractController
 
             $flashBag->add('success', "Le trick a bien été créé !");
 
-            // Génération URL + redirection
+            // Generate URL + redirection
             return $this->redirectToRoute('home');
         }
 
 
-        // Création du rendu du formulaire pour Twig
+        // Creation of the form
         $formView = $form->createView();
 
         return $this->render('trick/new.html.twig', [
@@ -144,6 +144,18 @@ class TrickController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/effacerTrick/{id}", name="delete-trick")
+     */
+    public function delete($id)
+    {
+        $trick = $this->repository->find($id);
+        $this->repository->remove($trick);
+        // Generate URL + redirection
+        return $this->redirectToRoute('home');
+    }
+
+    
     /*protected function embedPictureForms($form, Trick $trick): void
     {
         $pictureForms = $form->get('pictures');
