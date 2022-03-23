@@ -3,20 +3,54 @@
 {% block title %}Bienvenue sur Snowtricks!{% endblock %}
 
 {% block content %}
+    <div class="banner">
+        <img src="{{ asset ('img/snowtricksAccueil.jpg') }}" class="img-accueil img-fluid">
+        <p style="text-shadow: #FFF 2px 0 10px;bottom:10rem;left:1rem;font-size:4rem;" class="position-absolute">Bienvenue sur Snowtricks</p>
+        <p class="position-absolute" style="bottom:2.6rem;right:1rem;font-size:5rem;">
+        <a href="#main-content" style="color:black;">
+            <i class="bi bi-arrow-down-circle-fill"></i>
+        </a>
+        </p>
+    </div>
+    <div class="banner-mobil">
+        <img src="{{ asset ('img/snowtricksAccueil.jpg') }}" class="img-fluid">
+        <p style="text-shadow: #FFF 2px 0 10px;bottom:7rem;left:0.2rem;font-size:1.5rem;" class="position-relative">Bienvenue sur Snowtricks</p>
+        <p class="position-relative" style="bottom:6rem;left:22rem;font-size:1.5rem;">
+        <a href="#main-content" style="color:black;">
+            <i class="bi bi-arrow-down-circle-fill"></i>
+        </a>
+        </p>
+    </div>
     <div class="container">
-    <h1 class="text-center">Bienvenue sur Snowtricks</h1>
-    <div class="row justify-content-around text-center">
+    {% for message in app.flashes('success') %}
+      <div class="alert alert-success">
+        {{ message }}
+      </div>
+    {% endfor %}
+    <div id="main-content" class="row justify-content-around text-center">
         {% for trick in tricks %}
-                    <a href="{{ path('show-trick', {'slug': trick.slug}) }}" class="card  m-4 col-9 col-lg-3 text-decoration-none">
-                        <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}"class="card-img-top card-trick-picture img-fluid">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ trick.name }}</h5>
-                            <div class="card-footer text-muted">
-                                <i class="bi bi-pencil-fill"></i>
-                                <i class="bi bi-trash-fill"></i>
-                            </div>
+                    <div class="col-12 col-lg-3 my-3 mx-3 mb-3">
+                        <div class="card">
+                            <a href="{{ path('show-trick',{slug:trick.slug}) }}" class="text-decoration-none" style="color:black;">
+                                <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}" class="card-img-top card-img-trick" alt="{{ trick.name }}">
+                                <div class="card-body">
+                                    <div class="card-footer">
+                                        <h4 class="card-title">{{ trick.name }}</h4>
+                        
+                                        {#{% if is_granted('ROLE_USER') %}#}
+
+                                            <a href="{{ path('edit-trick', {slug:trick.slug}) }}" class="text-decoration-none" style="color:black;">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </a>
+                                            <a href={#"#eraseTrick" data-bs-toggle="modal" data-trick=#}"{{ path('delete-trick', {id:trick.id}) }}" class="trick-delete text-decoration-none" style="color:red;">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </a>
+                                        {#{% endif %}#}
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
+                    </div>
         {% endfor %}
     </div>
     </div>

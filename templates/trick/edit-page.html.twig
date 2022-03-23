@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modifier un trick{% endblock %}
+{% block content %}
+    <div class="container">   
+        <h1 class="text-center mt-3 mb-3 back-h1">Modification du trick :
+				{{ trick.name }}</h1>
+
+
+			{{ form_start(form) }}
+			{{ form_errors(form) }}
+
+
+			<div class="row create-form mb-3">
+				<div class="col-12 col-xl-6">
+					{{ form_row(form.name) }}
+					{{ form_row(form.description) }}
+					{{ form_row(form.groupTrick) }}
+				</div>
+				<div class="col-12 col-xl-6 visuals-container">
+					<div class="col medias-container mb-5">
+						<div id="medias" class="medias" data-prototype="{{ form_widget(form.pictures.vars.prototype)|e('html_attr') }}">
+							{{ form_widget(form.pictures) }}
+						</div>
+						<button id="add-media" class="add-media" type="button" data-collection-holder-class="medias">Ajouter une image</button>
+					</div>
+					<div class="col videos-container">
+						<div id="videos" class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
+							{{ form_widget(form.videos) }}
+						</div>
+						<button id="add-video" class="add-video" type="button" data-collection-holder-class="videos">Ajouter une video</button>
+					</div>
+				</div>
+
+
+			</div>
+			<div class="edit-buttons">
+				<button type="submit" class="btn btn-success mb-3 save-btn">
+					<i class="bi bi-save-fill"></i>
+					Modifier
+				</button>
+				<a href="#eraseTrick" data-bs-toggle="modal" type="submit" data-trick="{{ path('delete-trick', {id:trick.id}) }}" class="btn btn-danger trick-delete">
+					<i class="bi bi-eraser-fill"></i>
+					Effacer
+				</a>
+			</div>
+		</div>
+
+
+		{{ form_end(form) }}
+
+	</div>
+{% endblock %}

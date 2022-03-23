@@ -126,9 +126,9 @@ class TrickController extends AbstractController
             $em->flush();
 
             /** @var FlashBag */
-            $flashBag = $session->getBag('flashes');
+            //$flashBag = $session->getBag('flashes');
 
-            $flashBag->add('success', "Le trick a bien été créé !");
+            $this->addFlash('success', "Le trick a bien été créé !");
 
             // Generate URL + redirection
             return $this->redirectToRoute('home');
@@ -140,6 +140,87 @@ class TrickController extends AbstractController
 
         return $this->render('trick/new.html.twig', [
             'form' => $formView,
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * @Route("/modifierTrick/{slug}", name="edit-trick", methods={"GET","POST"})
+     * 
+     */
+    public function edit(Trick $trick, Request $request, EntityManagerInterface $em, SessionInterface $session): Response
+    {
+
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
+        $form = $this->createForm(TrickType::class, $trick);
+
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /**@var \App\Entity\User $user */
+            $user = $this->getUser();
+
+            $trick->setAuthor($user);
+
+            $trick->setUpdatedAt(new DateTimeImmutable());
+
+
+            $pictureForms = $form->get('pictures');
+
+
+            foreach ($pictureForms as $pictureForm) {
+
+
+                /** @var UploadedFile $mediaFile */
+                $pictureFile = $pictureForm->get('filename')->getData();
+                $pictureFileName = uniqid() . '.' . $pictureFile->guessExtension();
+
+                $picture = $pictureForm->getData();
+                // Copie du fichier dans le dossier picture/trick
+                $pictureFile->move(
+                    $this->getParameter('picture_directory'),
+                    $pictureFileName
+                );
+
+                $trickPicture = new Picture();
+                $trickPicture->setFileName($pictureFileName);
+                $trick->addPicture($trickPicture);
+                $trickPicture->setTitle($picture->getTitle());
+                $trickPicture->setDescription($picture->getDescription());
+                $trickPicture->setTrick($trick);
+                $em->persist($trickPicture);
+            }
+
+            $videos = $form->get('videos')->getData();
+
+            foreach ($videos as $video) {
+                $trickVideo = new Video();
+                $trickVideo->setVideoUrl($video->getVideoUrl());
+                $trickVideo->setTitle($video->getTitle());
+                $trickVideo->setTrick($trick);
+                $em->persist($trickVideo);
+            }
+
+            $em->flush();
+
+
+            $this->addFlash('success', "Le trick a bien été modifié !");
+
+
+            // Génération URL + redirection
+            // return $this->redirectToRoute('show-trick', [
+            //     'id' => $trick->getId(),
+            //     'slug' => $trick->getSlug()
+            // ]);
+        }
+
+        return $this->render('trick/edit-page.html.twig', [
+            'trick' => $trick,
+            'form' => $form->createView(),
             'user' => $user
         ]);
     }
