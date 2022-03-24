@@ -106,7 +106,7 @@ class VideoFixtures extends Fixture implements DependentFixtureInterface
 
         $video = new Video();
         $video->setTitle('Air-to-Fakie video');
-        $video->setVideoUrl('"https://www.youtube.com/embed/2fP_R0tXFAc');
+        $video->setVideoUrl('https://www.youtube.com/embed/2fP_R0tXFAc');
 
         // this reference returns the Group object created in GroupFixtures
         $video->setTrick($this->getReference(TrickFixtures::TRICK_AIR_TO_FAKIE));

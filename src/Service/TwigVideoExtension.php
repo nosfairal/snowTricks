@@ -21,6 +21,7 @@ class TwigVideoExtension extends AbstractExtension
     public function formatVideo($url)
     {
         if (preg_match('#youtube\.com#', $url)) {
+
             $url = preg_replace('#/watch\?v=#', '/embed/', $url);
         }
         

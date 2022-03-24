@@ -10,6 +10,7 @@ use App\Form\MessageType;
 use App\Form\TrickType;
 use App\Form\PictureType;
 use App\Repository\TrickRepository;
+use App\Repository\MessageRepository;
 use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
@@ -44,9 +45,9 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/group-slug/trick-details/{slug}", name="show-trick")
+     * @Route("/{group}/trick-details/{slug}", name="show-trick")
      */
-    public function show(Trick $trick, Request $request): Response
+    public function show(Trick $trick, Request $request, MessageRepository $mr): Response
     {   
         $currentUser = $this->getUser();
         $message = new Message();
@@ -56,17 +57,18 @@ class TrickController extends AbstractController
         if ($currentUser && $form->isSubmitted() && $form->isValid()) {
             $message->setTrick($trick);
             $message->setAuthor($currentUser);
+            $message->setCreatedAt(new DateTimeImmutable('now'));
 
-            $message->messageRepository->add();
+            $mr->add($message);
 
             $this->addFlash('success', 'Your message has been successfully added.');
 
             return $this->redirectToRoute('show-trick', [
-                'group-slug' => $trick->getGroupTrick()->getSlug(),
+                'group' => $trick->getGroupTrick()->getSlug(),
                 'slug' => $trick->getSlug()
             ]);
         }
-
+        //\dd($trick->getVideos());
         return $this->render('trick/show-trick.html.twig', [
             'trick' => $trick,
             'form' => $form->createView()

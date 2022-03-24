@@ -6,7 +6,7 @@
         <div class="card  mx-auto col-12 col-lg-8 mt-4 mb-2">
             <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}"class="card-img-top p-2 img-fluid">
             <div class="card-body text-center">
-                <h5 class="card-title">{{ trick.name }}</h5>
+                <h5 class="card-title text-center">{{ trick.name }}</h5>
                 <hr class="my-3"/>
                 <p class="card-text text-muted"> Publié par : {{ trick.author.userName }} | le : {{ trick.createdAt|date("d/m/Y \\à H:i") }} | Catégorie : {{ trick.groupTrick.name }} | 0 commentaires</p>
                     {#{% if attribute.lastUpdate  is not null %}<p>Dernière modification le : {{ attribute.lastUpdate|date("d/m/Y \\à H:i") }}</p>{% endif %}#}
@@ -50,7 +50,7 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="carousel-item  active ">
-                                    <iframe class="w-100 trickMedia" src="{{ trick.videos[0].videoUrl | formatVideo }}" allowfullscreen=""></iframe>
+                                    <iframe class="w-100 trickMedia" src="{{ trick.videos[0].videoUrl | formatVideo }}"  height="200px" width="300px" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                 </div>                                        
                             </div>
                             <a class="carousel-control-prev" href="#carousel-v" data-slide="prev">
@@ -63,9 +63,11 @@
                     </div>
                 </div>  
                 <hr class="my-3"/>
-                <h5 class="card-title">Description</h5>
+                <h5 class="card-title text-center">Description</h5>
                 <p class="card-text text mb-2">{{ trick.description }}</p>                                        
             </div>
+                <hr class="my-3"/>
+                <h5 class="card-title text-center">Commentaires</h5>
             {{ form_start(form) }}
             <div class="row">
                 <div class="col my-2">
@@ -76,6 +78,9 @@
                 </div>
             {{ form_end(form) }}
                 </div>
+                {% for message in trick.messages %}
+                 <h5>{{ loop.index }} - {{ message.content }}</5>
+                 {% endfor %}
         </div>
         
     </div>

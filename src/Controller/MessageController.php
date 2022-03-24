@@ -60,7 +60,7 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route("/trick/{slug}", name="list-message")
+     * @Route("/message/trick/{slug}", name="list-message")
      */
     public function show($slug, TrickRepository $trickRepository, MessageRepository $messageRepository)
     {
