@@ -6,6 +6,7 @@ use App\Entity\Message;
 use App\Entity\Trick;
 use App\Entity\Picture;
 use App\Entity\Video;
+use App\Form\MessageType;
 use App\Form\TrickType;
 use App\Form\PictureType;
 use App\Repository\TrickRepository;
@@ -66,7 +67,7 @@ class TrickController extends AbstractController
             ]);
         }
 
-        return $this->render('trick/show.html.twig', [
+        return $this->render('trick/show-trick.html.twig', [
             'trick' => $trick,
             'form' => $form->createView()
         ]);
