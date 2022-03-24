@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Message;
 use App\Entity\Trick;
 use App\Repository\MessageRepository;
+use App\Repository\TrickRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,8 +48,7 @@ class MessageController extends AbstractController
             $message->setTrick($trick);
             $message->setCreatedAt(new DateTimeImmutable());
 
-            $em->persist($message);
-            $em->flush();
+            $message->messageRepository->add();
 
 
             $this->addFlash('success', "Votre commentaire a bien été ajouté !");
@@ -58,4 +58,35 @@ class MessageController extends AbstractController
 
         return $this->redirect($referer);
     }
+
+    /**
+     * @Route("/trick/{slug}", name="list-message")
+     */
+    public function show($slug, TrickRepository $trickRepository, MessageRepository $messageRepository)
+    {
+        $trick = $trickRepository->findOneBy([
+            'slug' => $slug
+        ]);
+
+        $trickSlug = $trick->getSlug();
+
+
+        $messages = $messageRepository->findByTrick($trickSlug, ['createdAt' => 'DESC'], 5, 0);
+
+        $messageCount = $messageRepository->count([]);
+
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
+
+
+        return $this->render('message/list-message.html.twig', [
+            'trick' => $trick,
+            'user' => $user,
+            'messages' => $messages,
+            'messageCount' => $messageCount
+        ]);
+    }
+
+
 }
