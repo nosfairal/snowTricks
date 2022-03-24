@@ -31,7 +31,7 @@
         {% for trick in tricks %}
                     <div class="col-12 col-lg-3 my-3 mx-3 mb-3">
                         <div class="card">
-                            <a href="{{ path('show-trick',{slug:trick.slug}) }}" class="text-decoration-none" style="color:black;">
+                            <a href="{{ path('show-trick', {'group-slug':trick.groupTrick.slug, 'slug':trick.slug}) }}" class="text-decoration-none" style="color:black;">
                                 <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}" class="card-img-top card-img-trick" alt="{{ trick.name }}">
                                 <div class="card-body">
                                     <div class="card-footer">

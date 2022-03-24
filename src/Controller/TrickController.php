@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Message;
 use App\Entity\Trick;
 use App\Entity\Picture;
 use App\Entity\Video;
@@ -37,19 +38,37 @@ class TrickController extends AbstractController
     {   
         $tricks = $this->repository->findAll();
         return $this->render('trick/index.html.twig', [
-            'controller_name' => 'TrickController',
             'tricks' => $tricks
         ]);
     }
 
     /**
-     * @Route("/trick-details/{slug}", name="show-trick")
+     * @Route("/group-slug/trick-details/{slug}", name="show-trick")
      */
-    public function show(Trick $trick): Response
+    public function show(Trick $trick, Request $request): Response
     {   
-        return $this->render('trick/show-trick.html.twig', [
+        $currentUser = $this->getUser();
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $form->handleRequest($request);
+
+        if ($currentUser && $form->isSubmitted() && $form->isValid()) {
+            $message->setTrick($trick);
+            $message->setAuthor($currentUser);
+
+            $message->messageRepository->add();
+
+            $this->addFlash('success', 'Your message has been successfully added.');
+
+            return $this->redirectToRoute('show-trick', [
+                'group-slug' => $trick->getGroupTrick()->getSlug(),
+                'slug' => $trick->getSlug()
+            ]);
+        }
+
+        return $this->render('trick/show.html.twig', [
             'trick' => $trick,
-            'slug' => $trick->getSlug()
+            'form' => $form->createView()
         ]);
     }
 
