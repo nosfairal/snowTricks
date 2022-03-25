@@ -12,6 +12,7 @@ use App\Form\PictureType;
 use App\Repository\TrickRepository;
 use App\Repository\MessageRepository;
 use DateTimeImmutable;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -77,6 +78,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/nouveau", name="new-trick")
+     * @IsGranted("ROLE_USER", message="Vous devez être authentifié pour pouvoir créer un trick")
      */
     public function new(Request $request, SluggerInterface $slugger, EntityManagerInterface $em, SessionInterface $session)
     {
@@ -168,7 +170,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/modifierTrick/{slug}", name="edit-trick", methods={"GET","POST"})
-     * 
+     * @IsGranted("ROLE_USER", message="Vous devez être authentifié pour pouvoir modifier un trick")
      */
     public function edit(Trick $trick, Request $request, EntityManagerInterface $em, SessionInterface $session): Response
     {
@@ -249,6 +251,7 @@ class TrickController extends AbstractController
 
     /**
      * @Route("/effacerTrick/{id}", name="delete-trick")
+     * @IsGranted("ROLE_USER", message="Vous devez être authentifié pour pouvoir effacer un trick")
      */
     public function delete($id)
     {
