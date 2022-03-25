@@ -21,7 +21,6 @@ class MainController extends AbstractController
     {
         $tricks = $this->repository->findAll();
         return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
             'tricks' => $tricks
         ]);
     }

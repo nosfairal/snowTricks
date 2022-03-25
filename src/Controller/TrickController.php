@@ -206,7 +206,7 @@ class TrickController extends AbstractController
                 $picture = $pictureForm->getData();
                 // Copie du fichier dans le dossier picture/trick
                 $pictureFile->move(
-                    $this->getParameter('picture_directory'),
+                    $this->getParameter('pictures_directory'),
                     $pictureFileName
                 );
 

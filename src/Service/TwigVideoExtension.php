@@ -24,6 +24,11 @@ class TwigVideoExtension extends AbstractExtension
 
             $url = preg_replace('#/watch\?v=#', '/embed/', $url);
         }
+
+        if (preg_match('#youtu\.be#', $url)) {
+
+            $url = preg_replace('#youtu\.be#', 'youtube.com/embed', $url);
+        }
         
         if (preg_match('#dailymotion#', $url)) {
             $url = preg_replace('#video/#', 'embed/video/', $url);

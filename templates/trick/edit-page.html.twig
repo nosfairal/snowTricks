@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}Modifier un trick{% endblock %}
 {% block content %}
-    <div class="container">   
         <h1 class="text-center mt-3 mb-3 back-h1">Modification du trick :
 				{{ trick.name }}</h1>
 
@@ -9,19 +8,107 @@
 			{{ form_start(form) }}
 			{{ form_errors(form) }}
 
+		
 
-			<div class="row create-form mb-3">
-				<div class="col-12 col-xl-6">
-					{{ form_row(form.name) }}
-					{{ form_row(form.description) }}
-					{{ form_row(form.groupTrick) }}
+		<div class="container">
+    <div class="row">
+        <div class="card  mx-auto col-12 col-lg-8 mt-4 mb-2">
+			<div>
+            <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}"class="card-img-top p-2 img-fluid">
+			<p class="position-absolute" style="top:1rem;right:3rem;font-size:1.5rem;">
+				<a href="#main-content" style="color:black;">
+					<i class="bi bi-pencil-fill"></i>					
+				</a>
+				<a href="#main-content" style="color:black;">
+					<i class="bi bi-trash-fill"></i>					
+				</a>
+			</p>
+			</div>
+            <div class="card-body text-center">
+                <h5 class="card-title text-center">{{ form_row(form.name) }}</h5>
+                <hr class="my-3"/>
+                <p class="card-text text-muted"> Publié par : {{ trick.author.userName }} | le : {{ trick.createdAt|date("d/m/Y \\à H:i") }} | Catégorie : {{ form_row(form.groupTrick) }} | 0 commentaires</p>
+                    {#{% if attribute.lastUpdate  is not null %}<p>Dernière modification le : {{ attribute.lastUpdate|date("d/m/Y \\à H:i") }}</p>{% endif %}#}
+                <hr class="my-3"/>
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div id="carousel" class="carousel slide mt-3 mb-2" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target=".carousel" data-slide-to="0" class="active"></li>
+                                <li data-target=".carousel" data-slide-to="1" class=""></li>
+                                <li data-target=".carousel" data-slide-to="2" class=""></li>
+                                <li data-target=".carousel" data-slide-to="3" class=""></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img class="w-100 img-fluid trickMedia" src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}" alt="nosepress-image-7">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="w-100 img-fluid" src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}" alt="nosepress-image-49">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="w-100 img-fluid" src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}" alt="nosepress-image-50">
+                                </div>
+                                <div class="carousel-item">
+                                    <img class="w-100 img-fluid" src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}" alt="nosepress-image-51">
+                                </div>
+                                        
+                            </div>
+                            <a class="carousel-control-prev" href="#carousel" data-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </a>
+                            <a class="carousel-control-next" href="#carousel" data-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </a> 
+                        </div>
+                    </div>                                          
+                    <div class="col-lg-6 col-md-12">
+                        <div id="carousel-v" class="carousel slide mt-3 mb-2" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-v" data-slide-to="0" class="active"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item  active ">
+                                    <iframe class="w-100" src="{{ trick.videos[0].videoUrl | formatVideo }}"  height="200px" width="300px" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>                                        
+                            </div>
+                            <a class="carousel-control-prev" href="#carousel-v" data-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </a>
+                            <a class="carousel-control-next" href="#carousel-v" data-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </a> 
+                        </div>
+                    </div>
+                </div>  
+                <hr class="my-3"/>
+                <h5 class="card-title text-center">Description</h5>
+                <p class="card-text text mb-2">{{ form_row(form.description) }}</p>                                        
+            </div>
+			<div class="edit-buttons">
+				<button type="submit" class="btn btn-success save-btn">
+					<i class="bi bi-save-fill"></i>
+					Modifier
+				</button>
+				<a href="#eraseTrick" data-bs-toggle="modal" type="submit" data-trick="{{ path('delete-trick', {id:trick.id}) }}" class="btn btn-danger trick-delete">
+					<i class="bi bi-eraser-fill"></i>
+					Effacer
+				</a>
+			</div>
+        </div>
+		<div class="row create-form mb-3">
+				<div>
+				{% for picture in trick.pictures %}
+				{{ loop.index }} - <img src="{{ asset ('uploads/pictures/' ~  picture.filename) }}" height="200px" width="300px">
+                 {% endfor %}
+				<div>
 				</div>
-				<div class="col-12 col-xl-6 visuals-container">
+				<div class="col-12 col-xl-6">
 					<div class="col medias-container mb-5">
-						<div id="medias" class="medias" data-prototype="{{ form_widget(form.pictures.vars.prototype)|e('html_attr') }}">
+						<div id="pictures" class="pictures" data-prototype="{{ form_widget(form.pictures.vars.prototype)|e('html_attr') }}">
 							{{ form_widget(form.pictures) }}
 						</div>
-						<button id="add-media" class="add-media" type="button" data-collection-holder-class="medias">Ajouter une image</button>
+						<button id="add-picture" class="add-picture" type="button" data-collection-holder-class="pictures">Ajouter une image</button>
 					</div>
 					<div class="col videos-container">
 						<div id="videos" class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
@@ -33,20 +120,14 @@
 
 
 			</div>
-			<div class="edit-buttons">
-				<button type="submit" class="btn btn-success mb-3 save-btn">
-					<i class="bi bi-save-fill"></i>
-					Modifier
-				</button>
-				<a href="#eraseTrick" data-bs-toggle="modal" type="submit" data-trick="{{ path('delete-trick', {id:trick.id}) }}" class="btn btn-danger trick-delete">
-					<i class="bi bi-eraser-fill"></i>
-					Effacer
-				</a>
-			</div>
-		</div>
-
-
-		{{ form_end(form) }}
+			
+        {{ form_end(form) }}
+    </div>
+	
 
 	</div>
+	{% block scripts %}
+        {{ encore_entry_link_tags('app') }}
+        <script src="{{ asset('build/newPicture.js') }}"></script>
+    {% endblock %}
 {% endblock %}

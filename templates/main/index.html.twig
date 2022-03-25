@@ -37,7 +37,7 @@
                                     <div class="card-footer">
                                         <h4 class="card-title">{{ trick.name }}</h4>
                         
-                                        {#{% if is_granted('ROLE_USER') %}#}
+                                        {% if is_granted('ROLE_USER') %}
 
                                             <a href="{{ path('edit-trick', {slug:trick.slug}) }}" class="text-decoration-none" style="color:black;">
                                                 <i class="bi bi-pencil-fill"></i>
@@ -45,7 +45,7 @@
                                             <a href={#"#eraseTrick" data-bs-toggle="modal" data-trick=#}"{{ path('delete-trick', {id:trick.id}) }}" class="trick-delete text-decoration-none" style="color:red;">
                                                 <i class="bi bi-trash-fill"></i>
                                             </a>
-                                        {#{% endif %}#}
+                                        {% endif %}
                                     </div>
                                 </div>
                             </a>
