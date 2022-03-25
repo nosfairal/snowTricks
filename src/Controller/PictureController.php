@@ -26,6 +26,7 @@ class PictureController extends AbstractController
 
     /**
      * @Route("/nouveau", name="picture_new")
+     * @IsGranted("ROLE_USER", message="Vous devez être authentifié pour pouvoir ajouter une image")
      */
     public function new(Request $request): Response
     {
@@ -34,8 +35,6 @@ class PictureController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->processForm($form, $picture);
-
             $this->addFlash('success', 'The picture has been successfully added.');
 
             /*return $this->redirectToRoute('trick_show', [

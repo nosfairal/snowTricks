@@ -34,6 +34,7 @@ class MessageController extends AbstractController
 
     /**
      * @Route("message_add/{id}", name="message_add")
+     * @IsGranted("ROLE_USER", message="Vous devez être authentifié pour pouvoir ajouter un commentaire")
      */
     public function add(Request $request, Trick $trick, EntityManagerInterface $em, SessionInterface $session)
     {
