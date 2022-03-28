@@ -16,7 +16,7 @@
 			<div>
             <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}"class="card-img-top p-2 img-fluid">
 			<p class="position-absolute" style="top:1rem;right:3rem;font-size:1.5rem;">
-				<a href="#main-content" style="color:black;">
+				<a href="{{ path('picture-edit', {id:trick.pictures[0].id}) }}" style="color:black;">
 					<i class="bi bi-pencil-fill"></i>					
 				</a>
 				<a href="#main-content" style="color:black;">

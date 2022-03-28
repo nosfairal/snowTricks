@@ -62,7 +62,7 @@ class TrickController extends AbstractController
 
             $mr->add($message);
 
-            $this->addFlash('success', 'Your message has been successfully added.');
+            $this->addFlash('success', 'Votre commentaire a bien été ajouté.');
 
             return $this->redirectToRoute('show-trick', [
                 'group' => $trick->getGroupTrick()->getSlug(),
@@ -204,7 +204,7 @@ class TrickController extends AbstractController
                 $pictureFileName = uniqid() . '.' . $pictureFile->guessExtension();
 
                 $picture = $pictureForm->getData();
-                // Copie du fichier dans le dossier picture/trick
+                // Copy the file into uploads/pictures
                 $pictureFile->move(
                     $this->getParameter('pictures_directory'),
                     $pictureFileName
