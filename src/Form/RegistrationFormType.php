@@ -29,7 +29,19 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ],
-                'label' => 'Votre pseudonyme :*'
+                'label' => 'Votre pseudonyme :*',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Merci de renseigner votre pseudonyme',
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Votre pseudonyme doit faire au moins {{ limit }} caractères',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 30,
+                        'maxMessage' => 'Votre pseudonyme doit faire au plus {{ limit }} caractères'
+                    ]),
+                ],
             ])
             ->add('RGPDConsent', CheckboxType::class, [
                 'mapped' => false,
@@ -58,7 +70,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit faire au moins {{ limit }} caractères',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),

@@ -48,6 +48,9 @@ class TrickType extends AbstractType
             ])
             ->add('pictures', CollectionType::class, [
                 'entry_type' => PictureType::class,
+                'entry_options' => [
+                    'label' => false
+                ],
                 'allow_add' => true,
                 'by_reference' => false,
                 'allow_delete' => true,

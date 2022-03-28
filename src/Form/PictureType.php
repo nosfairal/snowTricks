@@ -20,9 +20,9 @@ class PictureType extends AbstractType
     {
         $builder
             ->add("title", TextType::class, [
-                'attr' => [
-                    'label' => "Titre de l'image",
+                'attr' => [                    
                     'placeholder' => "Titre de l'image",
+                    'label' => "Titre de l'image",
                     'class' => 'form-control'
                 ],
                 'constraints' => [
