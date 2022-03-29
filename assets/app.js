@@ -8,10 +8,14 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
 
+// loads the jquery package from node_modules
+ import $ from 'jquery';
+ // create global $ and jQuery variables
+global.$ = global.jQuery = $;
+
+
+
 // start the Stimulus application
 import './bootstrap';
+require('font-awesome/scss/font-awesome.scss');
 
-const $ = require('jquery');
-
-// create global $ and jQuery variables
-global.$ = global.jQuery = $;

@@ -47,8 +47,8 @@
             {{ form_end(form) }}
         </div>
         </div>
-        {% block scripts %}
-        {{ encore_entry_link_tags('app') }}
-        <script src="{{ asset('build/newPicture.js') }}"></script>
+        {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('newPicture') }}
         {% endblock %}
 {% endblock %}
