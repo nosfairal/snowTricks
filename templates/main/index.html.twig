@@ -43,7 +43,7 @@
                                                 <i class="bi bi-pencil-fill"></i>
                                             </a>
                                             <a href={#"#eraseTrick" data-bs-toggle="modal" data-trick=#}"{{ path('delete-trick', {id:trick.id}) }}" class="trick-delete text-decoration-none" style="color:red;">
-                                                <i class="fa-solid fa-trash-can"></i>
+                                                <i class="bi bi-trash-fill"></i>
                                             </a>
                                         {% endif %}
                                     </div>
@@ -54,8 +54,6 @@
         {% endfor %}
     </div>
     </div>
-    {% block javascripts %}
-        {{ parent() }}
-    {% endblock %}
+
 
 {% endblock %}

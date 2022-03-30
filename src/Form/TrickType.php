@@ -66,12 +66,12 @@ class TrickType extends AbstractType
                 'mapped' => false,
                 'entry_type' => VideoType::class
             ])
-            ->add('submit', SubmitType::class, [
+            /*->add('submit', SubmitType::class, [
                 'label'=>'Ajouter un nouveau trick',
                 'attr' => [
                     'class' => 'btn btn-block btn-secondary py-2 px-3'
                 ]
-            ])
+            ])*/
         ;
     }
 
