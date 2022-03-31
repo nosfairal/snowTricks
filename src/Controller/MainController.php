@@ -19,9 +19,11 @@ class MainController extends AbstractController
      */
     public function index(): Response
     {
-        $tricks = $this->repository->findAll();
+        $tricks = $this->repository->findBy([], ['createdAt' => 'DESC'], 9, 0);
+        $trickCount = $this->repository->count([]);
         return $this->render('main/index.html.twig', [
-            'tricks' => $tricks
+            'tricks' => $tricks,
+            'trickCount' => $trickCount
         ]);
     }
 }

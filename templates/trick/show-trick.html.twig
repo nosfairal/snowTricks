@@ -35,7 +35,7 @@
                                         <div class="carousel-item">
 
                                             {% endif %}
-                                            <img src="{{ asset ('uploads/pictures/' ~  picture.filename) }}" class="w-100" width="300" height="200" alt="{{ picture.title }}">
+                                            <img src="{{ asset ('uploads/pictures/' ~  picture.filename) }}" class="w-100" width="300" height="250" alt="{{ picture.title }}">
                                         </div>
                                         {% set isFirst = false %}
                                         {% endfor %}
@@ -71,7 +71,7 @@
                                         <div class="carousel-item">
 
                                             {% endif %}
-                                             <iframe class="w-100" src="{{ video.videoUrl | formatVideo }}"  height="200px" width="300px" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                             <iframe class="w-100" src="{{ video.videoUrl | formatVideo }}"  height="250px" width="300px" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                     </div>
                                         {% set isFirst = false %}
                                         {% endfor %}
