@@ -13,6 +13,8 @@ import './styles/app.scss';
  // create global $ and jQuery variables
 global.$ = global.jQuery = $;
 
+import { Tooltip, Toast, Popover } from 'bootstrap';
+
 
 
 // start the Stimulus application

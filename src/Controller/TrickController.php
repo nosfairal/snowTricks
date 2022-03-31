@@ -40,8 +40,10 @@ class TrickController extends AbstractController
     public function index(): Response
     {   
         $tricks = $this->repository->findAll();
+        $trickCount = $this->repository->count([]);
         return $this->render('trick/index.html.twig', [
-            'tricks' => $tricks
+            'tricks' => $tricks,
+            'trickCount' => $trickCount
         ]);
     }
 
@@ -253,7 +255,7 @@ class TrickController extends AbstractController
      * @Route("/effacerTrick/{id}", name="delete-trick")
      * @IsGranted("ROLE_USER", message="Vous devez être authentifié pour pouvoir effacer un trick")
      */
-    public function delete($id)
+    public function delete(Trick $trick, $id)
     {
         $trick = $this->repository->find($id);
         $this->repository->remove($trick);
@@ -261,26 +263,18 @@ class TrickController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
-    
-    /*protected function embedPictureForms($form, Trick $trick): void
+    /**
+     * @Route("/load-more/{start}",name="load-more")
+     */
+    public function load_more(Request $request, TrickRepository $trickRepository, $start = 9)
     {
-        $pictureForms = $form->get('pictures');
-
-        // Embed pictures forms
-        foreach ($pictureForms as $pictureForm) {
-            /** @var Picture $picture */
-            /*$picture = $pictureForm->getData();
-
-            /** @var UploadedFile $pictureFile */
-            /*$pictureFile = $pictureForm->get('filename')->getData();
-
-            // this condition is needed because the 'filename' field is not required
-            // so the image file must be processed only when a file is uploaded
-            if ($pictureFile) {
-                $event = ($picture->getFilename()) ? 'file.update' : 'file.new';
-                $this->dispatcher->dispatch(new FileUpdateEvent($picture, $pictureFile), $event);
-            }
+        if ($request->isXmlHttpRequest()) {
+            $tricks = $trickRepository->findBy([], ['createdAt' => 'DESC'], 3, $start);
+            //\dd($tricks);
+            return $this->render('trick/tricks-list.html.twig', [
+                'tricks' => $tricks
+            ]);
         }
-    }*/
+    }
     
 }

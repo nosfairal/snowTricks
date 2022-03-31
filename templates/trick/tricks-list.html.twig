@@ -1,0 +1,26 @@
+<div id="trick" class="row justify-content-around text-center">
+        {% for trick in tricks %}
+                <div class="col-12 col-lg-3 my-3 mx-3 mb-3">
+                    <div class="card">
+                        <a href="{{ path('show-trick', {group:trick.groupTrick.slug, slug:trick.slug}) }}" class="text-decoration-none" style="color:black;">
+                            <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}" class="card-img-top card-img-trick" alt="{{ trick.name }}">
+                            <div class="card-body">
+                                <div class="card-footer">
+                                    <h4 class="card-title">{{ trick.name }}</h4>
+                    
+                                    {% if is_granted('ROLE_USER') %}
+
+                                        <a href="{{ path('edit-trick', {slug:trick.slug}) }}" class="text-decoration-none" style="color:black;">
+                                            <i class="bi bi-pencil-fill"></i>
+                                        </a>
+                                        <a  data-bs-toggle="modal" href="#eraseTrick" data-trick="{{ path('delete-trick', {id:trick.id}) }}" class="trick-delete text-decoration-none" style="color:red;">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+        {% endfor %}
+</div>
