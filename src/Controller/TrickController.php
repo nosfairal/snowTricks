@@ -35,7 +35,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/trick", name="app_trick")
+     * @Route("/index", name="app_trick")
      */
     public function index(): Response
     {   
@@ -266,10 +266,10 @@ class TrickController extends AbstractController
     /**
      * @Route("/load-more/{start}",name="load-more")
      */
-    public function load_more(Request $request, TrickRepository $trickRepository, $start = 9)
+    public function load_more(Request $request, TrickRepository $trickRepository, $start = 10)
     {
         if ($request->isXmlHttpRequest()) {
-            $tricks = $trickRepository->findBy([], ['createdAt' => 'DESC'], 3, $start);
+            $tricks = $trickRepository->findBy([], ['createdAt' => 'DESC'], 5, $start);
             //\dd($tricks);
             return $this->render('trick/tricks-list.html.twig', [
                 'tricks' => $tricks

@@ -7,40 +7,48 @@ body {
 
 
 .card-footer{
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-title{
+  width: auto;
+  color: #007286;
+}
+
+.card-img-trick{
+  height: 250px;
+}
+
+.img-accueil{
+  width: 100%;
+}
+
+#logo{
+  width: 100px;
+  height: 100px;
+}
+
+.to-trick-up {
+  font-size: 40px;
+  color: black;
+  padding-bottom: 50px;
+}
+
+@media screen and (min-width: 640px) {
+  footer {
+    display: none; 
   }
-  .card-title{
-    width: 200px;
+  .banner-mobil{
+    display:none;
   }
-  
-  .card-img-trick{
-    height: 200px;
+}
+
+@media screen and (max-width: 639px) {
+  .banner{
+    display:none;
   }
-  
-  .img-accueil{
-    width: 100%;
+  header{
+    display:none;
   }
-  
-  #logo{
-    width: 100px;
-    height: 100px;
-  }
-  
-  @media screen and (min-width: 640px) {
-    footer {
-      display: none; 
-    }
-    .banner-mobil{
-      display:none;
-    }
-  }
-  
-  @media screen and (max-width: 639px) {
-    .banner{
-      display:none;
-    }
-    header{
-      display:none;
-    }
-  }
+}
