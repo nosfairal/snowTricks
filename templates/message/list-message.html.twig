@@ -1,14 +1,14 @@
 
 	<div class="row mb-4 justify-content-between">
 		<div class="col-12 col-sm-5 col-lg-3">
-			<i class="far fa-user"></i>
-			{{ trick.messages.Author }}<br>
+			{% if message.author.avatar %}  <img src="{{ asset ('uploads/avatars/' ~  message.author.avatar) }}" width="50rem" height="50rem"> {% endif %}
+			{{ message.author.username }}<br>
 			<span class="small" style="font-size: 0.75rem;">
-				<i class="far fa-clock"></i>
-				{{ trick.messages.createdAt|date('F j, Y \\a\\t H:i') }}
+				<i class="bi bi-clock"></i>
+				{{ message.createdAt|date("d/m/Y \\à H:i")  }}
 			</span>
 		</div>
-		<div class="col ps-3 border-start">
-			{{ trick.messages.content }}
+		<div class="col">
+			{{ message.content }}
 		</div>
 	</div>

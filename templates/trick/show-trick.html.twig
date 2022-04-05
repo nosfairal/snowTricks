@@ -103,8 +103,12 @@
                 {{ form_end(form) }}
                     </div>
                     {% for message in trick.messages %}
-                    <h5>{{ loop.index }} - {{ message.content }}</5>
-                    {% endfor %}
+                                     
+                    {#<h5>{{ loop.index }} - {% if message.author.avatar %}  <img src="{{ asset ('uploads/avatars/' ~  message.author.avatar) }}" width="50rem" height="50rem"> {% endif %} {{ message.content }}</5>
+                    
+                    #}
+                     {% include ("message/list-message.html.twig") %}
+                     {% endfor %}
             </div>
             
         </div>
