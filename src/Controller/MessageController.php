@@ -6,6 +6,7 @@ use App\Entity\Message;
 use App\Entity\Trick;
 use App\Repository\MessageRepository;
 use App\Repository\TrickRepository;
+use App\Service\PaginationService;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -17,9 +18,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MessageController extends AbstractController
 {
-    public function __construct(MessageRepository $repository)
+    public function __construct(MessageRepository $repository, PaginationService $pagination)
     {
        $this->repository = $repository ;
+       $this->pagination = $pagination ;
     }
 
     /**
@@ -50,7 +52,7 @@ class MessageController extends AbstractController
             $message->setTrick($trick);
             $message->setCreatedAt(new DateTimeImmutable());
 
-            $message->messageRepository->add();
+            $message->repository->add();
 
 
             $this->addFlash('success', "Votre commentaire a bien été ajouté !");
@@ -82,12 +84,43 @@ class MessageController extends AbstractController
 
 
 
-        return $this->render('message/list-message.html.twig', [
+        return $this->render('message/index.html.twig', [
             'trick' => $trick,
             'user' => $user,
             'messages' => $messages,
             'messageCount' => $messageCount
         ]);
+    }
+
+
+    /**
+     * @Route("/load-message/{id}/{start}", name="load-message")
+     */
+    public function load_message($id=0, Request $request, MessageRepository $mr, $start = 5)
+    {            
+        if ($request->isXmlHttpRequest()) {
+
+            $messages = $mr->findByTrick($id, ['createdAt' => 'DESC'], 5, $start);
+ 
+            return $this->render('message/list-message.html.twig', [
+                'messages' => $messages
+            ]);
+            //return new Response();
+            
+        }
+        /*$trickId = $trick->getId();
+        //\dd($trickId);
+        $messages = $mr->findByTrick($trickId, ['createdAt' => 'DESC'], 5, $start);
+        $count = 5;
+        $messagesTot = $mr->findByTrick($trick);
+        $messageCount = count($messagesTot);
+        //\dd($messages);
+        return $this->render('trick/show-trick.html.twig', [
+            'messages' => $messages,
+            'count' => $count,
+            'trick' => $trick,
+            'messageCount' => $messageCount
+        ]);*/
     }
 
 

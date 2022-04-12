@@ -11,10 +11,12 @@ use App\Form\TrickType;
 use App\Form\PictureType;
 use App\Repository\TrickRepository;
 use App\Repository\MessageRepository;
+use Countable;
 use DateTimeImmutable;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,7 +58,13 @@ class TrickController extends AbstractController
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
-
+        
+        $trickId = $trick->getId();
+        $messages = $mr->findByTrick($trickId, ['createdAt' => 'DESC'],5, 0);
+        //\dd($trick);
+        $messagesTot = $mr->findByTrick($trick);
+        $messageCount = count($messagesTot);
+        //\dd($messages);
         if ($currentUser && $form->isSubmitted() && $form->isValid()) {
             $message->setTrick($trick);
             $message->setAuthor($currentUser);
@@ -74,7 +82,9 @@ class TrickController extends AbstractController
         //\dd($trick->getVideos());
         return $this->render('trick/show-trick.html.twig', [
             'trick' => $trick,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'messages' => $messages,
+            'messageCount' => $messageCount
         ]);
     }
 
@@ -174,7 +184,7 @@ class TrickController extends AbstractController
      * @Route("/modifierTrick/{slug}", name="edit-trick", methods={"GET","POST"})
      * @IsGranted("ROLE_USER", message="Vous devez être authentifié pour pouvoir modifier un trick")
      */
-    public function edit(Trick $trick, Request $request, EntityManagerInterface $em, SessionInterface $session): Response
+    public function edit(Trick $trick, Request $request, EntityManagerInterface $em): Response
     {
 
         /** @var \App\Entity\User $user */
@@ -276,5 +286,6 @@ class TrickController extends AbstractController
             ]);
         }
     }
+
     
 }
