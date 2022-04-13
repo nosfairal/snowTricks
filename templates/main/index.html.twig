@@ -72,35 +72,35 @@
 	{{parent()}}
 	<script>
 		$(function () {
-        var click_count = 10
-        $('#load-more').off('click').on('click', function (event) {
-            /* event.preventDefault();
-            event.stopPropagation(); */
-            console.log('load-more***********************')
-        $.ajax({
-        url:'{{ path('load-more') }}' + '/' + click_count,
-        method: 'get'
-        }).done(function (message) {
+            var click_count = 10
+            $('#load-more').off('click').on('click', function (event) {
+                /* event.preventDefault();
+                event.stopPropagation(); */
+                console.log('load-more***********************')
+                $.ajax({
+                url:'{{ path('load-more') }}' + '/' + click_count,
+                method: 'get'
+                }).done(function (message) {
 
-        $('#tricks').append(message)
-        })
-        click_count += 5
-        if (click_count >= {{ trickCount }}) {
-        $('#load-more').hide()
-        }
-        })
+                $('#tricks').append(message)
+                })
+                click_count += 5
+                if (click_count >= {{ trickCount }}) {
+                $('#load-more').hide()
+                }
+            })
 
-        $('#trick-delete').click(function () {
-        let trick_url = $(this).data('trick');
-        console.log(trick_url)
-        $.ajax({url: trick_url, method: 'get'}).done(function () { // Redirect to home page
-        window.location.replace("{{ path('home') }}");
-        })
-        })
-        $('.trick-delete').click(function () {
-        let id = $(this).data('trick');
-        $('#trick-delete').data('trick', id)
-        })
+            $('#trick-delete').click(function () {
+                let trick_url = $(this).data('trick');
+                console.log(trick_url)
+                $.ajax({url: trick_url, method: 'get'}).done(function () { // Redirect to home page
+                window.location.replace("{{ path('home') }}");
+                })
+                })
+                $('.trick-delete').click(function () {
+                let id = $(this).data('trick');
+                $('#trick-delete').data('trick', id)
+            })
         })
 
 	</script>

@@ -13,6 +13,9 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            <script>$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})</script>
         {% endblock %}
     </head>
     {% block body %}
@@ -52,7 +55,9 @@
                     <section class="">
                     <!-- Accueil -->
                     <a
-                        class="btn btn-link btn-floating btn-lg text-dark m-2"
+                        class="btn btn-link btn-floating btn-lg text-dark m-2 link tooltip-link"
+                        data-toggle="tooltip"
+                        title="Accueil"
                         href="{{ path('home') }}"
                         role="button"
                         data-mdb-ripple-color="dark"

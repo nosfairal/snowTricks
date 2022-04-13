@@ -108,25 +108,6 @@ class MessageController extends AbstractController
             //return new Response();
             
         }
-        $messages = $mr->findByTrick($id, ['createdAt' => 'DESC'], 5, $start);
-        return $this->render('message/list-message.html.twig', [
-            'messages' => $messages
-        ]);
-
-            
-        /*$trickId = $trick->getId();
-        //\dd($trickId);
-        $messages = $mr->findByTrick($trickId, ['createdAt' => 'DESC'], 5, $start);
-        $count = 5;
-        $messagesTot = $mr->findByTrick($trick);
-        $messageCount = count($messagesTot);
-        //\dd($messages);
-        return $this->render('trick/show-trick.html.twig', [
-            'messages' => $messages,
-            'count' => $count,
-            'trick' => $trick,
-            'messageCount' => $messageCount
-        ]);*/
     }
 
 
