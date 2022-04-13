@@ -97,6 +97,7 @@
                 </div>
                     <hr class="my-3"/>
                     <h5 class="card-title text-center">Commentaires</h5>
+                    {% if is_granted('ROLE_USER') %}                    
                     {{ form_start(form) }}
                 <div class="row">
                     <div class="col my-2">
@@ -107,7 +108,7 @@
                     </div>
                     {{ form_end(form) }}
                 </div>
-                    
+                    {% endif %}
                                      
                     {#<h5>{{ loop.index }} - {% if message.author.avatar %}  <img src="{{ asset ('uploads/avatars/' ~  message.author.avatar) }}" width="50rem" height="50rem"> {% endif %} {{ message.content }}</5>
                     
