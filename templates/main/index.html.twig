@@ -19,18 +19,21 @@
         <p style="text-shadow: #FFF 2px 0 10px;top:8rem;left:0.5rem;font-size:1.5rem;" class="position-absolute">
             Bienvenue sur Snowtricks
         </p>
-        <p class="position-absolute" style="top:12rem;left:23rem;font-size:1.5rem;">
+        <p class="position-absolute" style="top:12rem;left:22rem;font-size:1.5rem;">
             <a href="#tricks" style="color:black;">
                 <i class="bi bi-arrow-down-circle-fill"></i>
             </a>
         </p>
     </div>
     <div class="container-fluid">
-        {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-        {% endfor %}
+        {% for rubrique, messages in app.flashes %}
+			<div class="alert alert-{{ rubrique }} alert-dismissible fade show" id="success-flash" role="alert">
+				{% for message in messages %}
+					<p>{{ message }}</p>
+				{% endfor %}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		{% endfor %}
                 {#<div id="trick-section" data-bs-spy="scroll" data-bs-offset="0" tabindex="0"></div>#}
             <div id="tricks" class="row justify-content-around text-center">
 			    {{ include ('trick/tricks-list.html.twig') }}

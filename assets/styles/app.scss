@@ -1,17 +1,18 @@
 body {
     background-color: lightgray;
 }
+
 @import "~bootstrap/scss/bootstrap";
 
 @import '~font-awesome/scss/font-awesome.scss';
 
 
-.card-footer{
+.card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.card-title{
+.card-title {
   width: auto;
   color: #007286;
 }
@@ -20,21 +21,38 @@ body {
   height: 250px;
 }
 
-.img-accueil{
+.img-accueil {
   width: 100%;
 }
 
-#logo{
+#logo {
   width: 100px;
   height: 100px;
 }
 
-#register-form{
+#register-form {
   padding-top: 10rem;
-  padding-bottom: 50rem;
+  padding-bottom: 10rem;
 }
 
+#edit-img-form {
+  padding-bottom: 10rem;
+}
 
+#connect-form {
+  padding-top: 13rem;
+  padding-bottom: 13rem;
+}
+
+#reset-password-form {
+  padding-top: 15rem;
+  padding-bottom: 15rem;
+}
+
+#edit-video-form {
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+}
 
 @media screen and (min-width: 640px) {
   footer {

@@ -2,21 +2,21 @@
 {% block title %} Modification d'une video{% endblock %}
 
 {% block content %}
-<div class="container">
-<h1>Modification d'une video</h1>
-{{ form_start(form, {'attr': {'id': 'video'}}) }}
-{{ form_row(form.title) }}
-{% if video %}
-	<iframe class="" src="{{ video.videoUrl | formatVideo }}"  height="200px" width="300px" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	<p class="mt-1 mb-0">Remplacer cette video :</p>
-{% endif %}
-{{ form_row(form.videoUrl, {
-'help' :""}) }}
+<div class="container" id="edit-video-form">
+	<h1 class="mb-4">Modification d'une video</h1>
+	{{ form_start(form, {'attr': {'id': 'video'}}) }}
+	{{ form_row(form.title, {'attr' : {'class': 'mb-4' }}) }}
+	{% if video %}
+		<iframe class="mb-4" src="{{ video.videoUrl | formatVideo }}"  height="200px" width="300px" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		<p class="mt-1 mb-0">Remplacer cette video en remplissant le lien ci-dessous</p>
+	{% endif %}
+	{{ form_row(form.videoUrl, {
+	'help' :""}) }}
 
 
-<button class="btn btn-primary h-100 me-1 mt-1">
-	<i class="bi bi-save"></i>
-	{{ button_label|default('Modifier') }}</button>
-{{ form_end(form) }}
+	<button class="btn btn-primary h-100 me-1 mt-2">
+		<i class="bi bi-save"></i>
+		{{ button_label|default('Modifier') }}</button>
+	{{ form_end(form) }}
 </div>
 {% endblock %}

@@ -2,7 +2,7 @@
 {% block title %} Modification d'une image{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container" id="edit-img-form">
 <h1>Modification d'une image</h1>
 {{ form_start(form, {'attr': {'id': 'picture'}}) }}
 {{ form_row(form.title) }}
