@@ -16,7 +16,7 @@ This is the sixth project of the formation Application Developer - PHP / Symfony
 
 Server:
 
-You need a web server with PHP7 and MySQL DBMS.
+You need a web server with PHP7 (>=7.2.5) and MySQL DBMS.
 
 Versions used in this project:
 
@@ -28,17 +28,13 @@ You also need an access to a SMTP server.
 
 Languages and libraries:
 
-This project is coded in PHP7, HTML5, CSS3 and JS.
+This project is coded in PHP7, HTML5, CSS3, Twig and JS.
 
 Dependencies manager: Composer
 
-PHP packages, included via Composer:
+Libraries included via Composer (used in fixtures):
 
-    . twig/twig: ^3.3,
-    . twbs/bootstrap: 5.1.3,
-    . symfony/dotenv: ^5.4,
-    . phpmailer/phpmailer: ^6.5,
-    . components/jquery: ^3.6,
-    . components/jqueryui: ^1.12
+    . doctrine/doctrine-fixtures-bundle: ^3.4,
+    . cocur/slugify: ^4.1
 
 ## Installation
