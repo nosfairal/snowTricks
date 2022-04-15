@@ -2,7 +2,10 @@
 	{% for message in messages %}
 	<div class="row mb-4 justify-content-between">
 		<div class="col-12 col-sm-5 col-lg-3">
-			{% if message.author.avatar %}  <img src="{{ asset ('uploads/avatars/' ~  message.author.avatar) }}" width="50rem" height="50rem"> {% endif %}
+			{% if message.author.avatar %}  <img src="{{ asset ('uploads/avatars/' ~  message.author.avatar) }}" width="50rem" height="50rem">
+			{% else %} 
+			<img src="{{ asset ('uploads/pictures/logoSnowtricks.png') }}" width="50rem" height="50rem">
+			 {% endif %}
 			{{ message.author.username }}<br>
 			<span class="small" style="font-size: 0.75rem;">
 				<i class="bi bi-clock"></i>

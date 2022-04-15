@@ -68,6 +68,12 @@ class Trick
     private $pictures;
 
     /**
+     * @ORM\OneToOne(targetEntity=Picture::class)
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private $mainPicture;
+
+    /**
      * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true)
      */
     private $videos;
@@ -224,6 +230,18 @@ class Trick
                 $picture->setTrick(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMainPicture(): ?Picture
+    {
+        return $this->mainPicture;
+    }
+
+    public function setMainPicture(?Picture $mainPicture): self
+    {
+        $this->mainPicture = $mainPicture;
 
         return $this;
     }

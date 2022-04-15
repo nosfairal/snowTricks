@@ -10,9 +10,7 @@
 			</div>
 		{% endfor %}
         <h1 class="text-center mt-3 mb-3 back-h1">Modification du trick :
-		{{ trick.name }}</h1>
-
-			
+		{{ trick.name }}</h1>			
 
 	<div class="container">
 		{{ form_start(form) }}
@@ -20,12 +18,24 @@
 		<div class="row">
 			<div class="card  mx-auto col-12 col-lg-8 mt-4 mb-2">
 				<div>
-					<img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}"class="card-img-top p-2 img-fluid">
-					<p class="position-absolute" style="top:1rem;right:3rem;font-size:1.5rem;">
-						<a href="{{ path('picture-edit', {id:trick.pictures[0].id}) }}" style="color:black;">
+					<img src=
+                        {% if trick.pictures[0].filename is defined %}
+                            "{{ asset ('uploads/pictures/' ~ trick.pictures[0].filename) }}"
+                        {% else %}
+                            "{{ asset ('img/snowtricksAccueil.jpg') }}"
+                        {% endif %}
+						class="card-img-top p-2 img-fluid">
+					<p class="position-absolute" style="top:1rem;right:2.5rem;font-size:1.5rem;">
+						<a href=
+						{% if trick.pictures[0].id is defined %}						
+						"{{ path('picture-edit', {id:trick.pictures[0].id}) }}"
+						{% else %}
+						"#add-picture"
+						{% endif %}
+						 style="color:white;">
 							<i class="bi bi-pencil-fill"></i>					
 						</a>
-						<a href="#main-content" style="color:black;">
+						<a href="#main-content" style="color:red;">
 							<i class="bi bi-trash-fill"></i>					
 						</a>
 					</p>
@@ -40,14 +50,15 @@
 					<div class="row">
 						<div class="col">
 							{% for picture in trick.pictures |slice(1, trick.pictures| length) %}
-							{{ loop.index }} - <img src="{{ asset ('uploads/pictures/' ~  picture.filename) }}" height="200px" width="300px" class="">
+							{{ loop.index }} - <img src="{{ asset ('uploads/pictures/' ~  picture.filename) }}" height="200px" width="300px" id="{{ picture.id }}" class="">
 							<p class="" style="">
 								<a href="{{ path('picture-edit', {id:picture.id}) }}" style="color:black;">
 									<i class="bi bi-pencil-fill"></i>					
 								</a>
-								<a href="#main-content" style="color:red;">
-									<i class="bi bi-trash-fill"></i>					
-								</a>
+								<form class="" method="post" action="{{ path('delete-picture', {'id': picture.id}) }}" onsubmit="return confirm('Êtes vous sûr.e de vouloir effacer cette image?');">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ picture.id) }}">
+									<button class="picture-delete" style="color:red;"><i class="bi bi-trash-fill"></i></button>
+								</form>
 							</p>
 							{% endfor %}
 						<div>
@@ -58,9 +69,10 @@
 								<a href="{{ path('video-edit', {id:video.id}) }}" style="color:black;">
 									<i class="bi bi-pencil-fill"></i>					
 								</a>
-								<a href="#main-content" style="color:red;">
-									<i class="bi bi-trash-fill"></i>					
-								</a>
+								<form class="" method="post" action="{{ path('delete-video', {'id': video.id}) }}" onsubmit="return confirm('Êtes vous sûr.e de vouloir effacer cette vidéo?');">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ video.id) }}">
+									<button class="video-delete" style="color:red;"><i class="bi bi-trash-fill"></i></button>
+								</form>
 							</p>
 							{% endfor %}
 						<div>
@@ -102,10 +114,44 @@
 		</div>
 		{{ form_end(form) }}
 	
-
+	</div>
+	</div>
+		<!-- Modal Picture -->
+        <div class="modal fade" id="erasePicture" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            <span class="badge bg-danger">Attention</span>
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Etes vous certain de vouloir effacer cette image ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Diantre non !</button>
+                        <button id="picture-delete" type="button" class="btn btn-primary">Parfaitement !</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 	</div>	
 {% endblock %}
 {% block javascripts %}
 	{{ parent() }}
 	{{ encore_entry_script_tags('newPicture') }}
+	<script>
+		$('#picture-delete').click(function () {
+			let picture_url = $(this).data('picture');
+                console.log(picture_url)
+                $.ajax({picture_url,
+                method: 'get'
+                })
+			/*$('.picture-delete').click(function () {
+                let id = $(this).data('picture');
+                $('#picture-delete').data('picture', id)
+        	})*/
+		})
+	</script>
 {% endblock %}

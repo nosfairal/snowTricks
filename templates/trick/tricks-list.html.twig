@@ -3,9 +3,16 @@
             <div class="col-md-4 col-lg-2 my-3 mx-3 mb-3">
                 <div class="card">
                     <a href="{{ path('show-trick', {group:trick.groupTrick.slug, slug:trick.slug}) }}" class="text-decoration-none" style="color:#007286;">
-                        <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}" class="card-img-top card-img-trick" alt="{{ trick.name }}">
+                        <img src=
+                        {% if trick.pictures[0].filename is defined %}
+                            "{{ asset ('uploads/pictures/' ~ trick.pictures[0].filename) }}"
+                        {% else %}
+                            "{{ asset ('img/snowtricksAccueil.jpg') }}"
+                        {% endif %}
+                               class="card-img-top card-img-trick" alt="{{ trick.name }}">
                         <div class="card-footer">
                             <h4 class="card-title">{{ trick.name }}</h4>
+                            
             
                             {% if is_granted('ROLE_USER') %}
                                 <div>

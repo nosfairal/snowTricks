@@ -100,4 +100,22 @@ class PictureController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/effacerImage/{id}", name="delete-picture")
+     * @IsGranted("ROLE_USER", message="Vous devez être authentifié pour pouvoir effacer une image")
+     */
+    public function delete(Request $request, Picture $picture, $id)
+    {
+        //$picture = $this->pictureRepository->find($id);
+        if ($this->isCsrfTokenValid('delete'.$picture->getId(), $request->get('_token'))) {
+            $this->pictureRepository->remove($picture);
+            $this->addFlash('success', 'Image supprimée avec succès');
+        }
+        
+        // Generate URL + redirection
+        $referer = $request->headers->get('referer');
+
+        return $this->redirect($referer);
+    }
+
 }
