@@ -11,19 +11,26 @@
         <div class="col-12 col-lg-3 my-3 mx-3 mb-3">
             <div class="card">
                 <a href="{{ path('show-trick', {group:trick.groupTrick.slug, slug:trick.slug}) }}" class="text-decoration-none" style="color:#007286;">
-                    <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}" class="card-img-top card-img-trick" alt="{{ trick.name }}">
+                    <img src=
+                    {% if trick.pictures[0].filename is defined %}
+                        "{{ asset ('uploads/pictures/' ~ trick.pictures[0].filename) }}"
+                    {% else %}
+                        "{{ asset ('img/snowtricksAccueil.jpg') }}"
+                    {% endif %}
+                     class="card-img-top card-img-trick" alt="{{ trick.name }}">
                     <div class="card-body">
                         <div class="card-footer">
                             <h4 class="card-title">{{ trick.name }}</h4>
             
                             {% if is_granted('ROLE_USER') %}
-
+                                <div>
                                 <a href="{{ path('edit-trick', {slug:trick.slug}) }}" class="text-decoration-none" style="color:black;">
                                     <i class="bi bi-pencil-fill"></i>
                                 </a>
                                 <a href="#eraseTrick" data-bs-toggle="modal" data-trick="{{ path('delete-trick', {id:trick.id}) }}" class="trick-delete text-decoration-none" style="color:red;">
                                     <i class="bi bi-trash-fill"></i>
                                 </a>
+                                </div>
                             {% endif %}
                         </div>
                     </div>

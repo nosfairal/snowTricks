@@ -12,13 +12,19 @@
 		{% endfor %}
         <div class="row">
             <div class="card  mx-auto col-12 col-lg-8 mt-4 mb-4">
-                <img src="{{ asset ('uploads/pictures/' ~ trick.pictures[0].fileName) }}"class="card-img-top p-2 img-fluid">
+                <img src=
+                        {% if trick.pictures[0].filename is defined %}
+                            "{{ asset ('uploads/pictures/' ~ trick.pictures[0].filename) }}"
+                        {% else %}
+                            "{{ asset ('img/snowtricksAccueil.jpg') }}"
+                        {% endif %}class="card-img-top p-2 img-fluid">
                 <div class="card-body text-center">
                     <h5 class="card-title text-center">{{ trick.name }}</h5>
                     <hr class="my-3"/>
                     <p class="card-text text-muted"> Publié par : {{ trick.author.userName }} | le : {{ trick.createdAt|date("d/m/Y \\à H:i") }} | Catégorie : {{ trick.groupTrick.name }} |  {{ messageCount }} commentaires</p>
                         {#{% if attribute.lastUpdate  is not null %}<p>Dernière modification le : {{ attribute.lastUpdate|date("d/m/Y \\à H:i") }}</p>{% endif %}#}
                     <hr class="my-3"/>
+                    <h5 class="card-title text-center">Photos et vidéos</h5>
                     <button id="seeMedia" class="btn btn-primary">Voir les photos et vidéos</button>
                     <section class="row" id="media-show-trick" >
                         <div class="col-lg-6 col-md-12">

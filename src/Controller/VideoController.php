@@ -7,13 +7,14 @@ use App\Form\VideoType;
 use App\Repository\VideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class VideoController extends AbstractController
 {
-    protected $pictureRepository;
+    protected $videoRepository;
     protected $entityManager;
 
     public function __construct(
@@ -56,5 +57,22 @@ class VideoController extends AbstractController
             'form' => $form->createView()
         ]);
 
+    }
+
+    /**
+     * @Route("/effacerVideo/{id}", name="delete-video")
+     * @IsGranted("ROLE_USER", message="Vous devez être authentifié pour pouvoir effacer une vidéo")
+     */
+    public function delete(Request $request, Video $video, $id)
+    {
+        if ($this->isCsrfTokenValid('delete'.$video->getId(), $request->get('_token'))) {
+            $this->videoRepository->remove($video);
+            $this->addFlash('success', 'Vidéo supprimée avec succès');
+        }
+        
+        // Generate URL + redirection
+        $referer = $request->headers->get('referer');
+
+        return $this->redirect($referer);
     }
 }
