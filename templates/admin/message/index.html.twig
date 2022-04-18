@@ -1,0 +1,52 @@
+{% extends 'admin/home.html.twig' %}
+
+{% block title %}Messages admin
+{% endblock %}
+
+{% block gestion %}
+
+	<h2>Messages admin</h2>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Trick</th>
+				<th>Author</th>
+				<th>Message</th>
+				<th>CreatedAt</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for message in messages %}
+				<tr>
+					<td>{{ message.id }}</td>
+					<td>{{ message.trick.id }}</td>
+					<td>{{ message.author.userName }}</td>
+					<td>{{ message.content }}</td>
+					<td>{{ message.createdAt ? message.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+					<td>
+						<div class="d-flex align-items-start">
+							<div class="mt-1 me-1">
+								<a class="btn btn-sm btn-primary" href="{{ path('show-trick', {'slug': message.trick.slug, 'group': message.trick.groupTrick.slug}) }}#messages">
+									<i class="bi bi-eye"></i>
+								</a>
+							</div>
+							<div class="mt-1 me-1">
+								<a class="btn btn-sm btn-danger" href="{{ path('delete-message', {'id': message.id}) }}">
+									<i class="bi bi-trash"></i>
+								</a>
+							</div>
+						</div>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">no message found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}

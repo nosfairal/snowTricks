@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue dans l'administration
+{% endblock %}
+
+{% block content %}
+
+    {% block topbanner %}
+	    <h1 class="mx-5 my-3 text-center">gérer le contenu de votre site</h1>
+
+        <div class="row my-4 mx-5 justify-content-around">
+            <a class="btn btn-primary col-md-2 col-6 {{ app.request.get('_route') == 'trick_admin' ? 'active' }}" href="{{ path('trick_admin') }}">
+                <i class="bi bi-clipboard"></i>
+                <span class="d-none d-md-inline">Gérer les
+                </span>tricks</a>
+            <a class="btn btn-primary col-md-2 col-6 {{ app.request.get('_route') == 'message_admin' ? 'active' }}" href="{{ path('message_admin') }}">
+                <i class="far fa-comments"></i>
+                <span class="d-none d-md-inline">Gérer les
+                </span>messages</a>
+            <a class="btn btn-primary col-md-2 col-6 {{ app.request.get('_route') == 'user_admin' ? 'active' }}" href="{{ path('user_admin') }}">
+                <i class="far fa-user"></i>
+                <span class="d-none d-md-inline">Gérer les
+                </span>membres</a>
+            <a class="btn btn-primary col-md-2 col-6 {{ app.request.get('_route') == 'group_admin' ? 'active' }}" href="{{ path('group_admin') }}">
+                <i class="far fa-object-group"></i>
+                <span class="d-none d-md-inline">Gérer les
+                </span>groupes</a>
+            <a class="btn btn-primary col-md-2 col-6 {{ app.request.get('_route') == 'picture_admin' ? 'active' }}" href="{{ path('picture_admin') }}">
+                <i class="far fa-image"></i>
+                <span class="d-none d-md-inline">Gérer les
+                </span>images</a>
+            <a class="btn btn-primary col-md-2 col-6 {{ app.request.get('_route') == 'video_admin' ? 'active' }}" href="{{ path('video_admin') }}">
+                <i class="fas fa-film"></i>
+                <span class="d-none d-md-inline">Gérer les
+                </span>vidéos</a>
+        </div>
+    {% endblock %}
+    {% block gestion %}
+    <p>Bienvenue sur votre interface de gestion<br>
+		Quelques statistiques sur votre site:</p>
+
+	<ul>
+		<li class="mb-2">
+			<strong>{{ tricks | length }}</strong>
+			tricks dans
+			<strong>{{ groups | length }}</strong>
+			groupes</li>
+		<li class="mb-2">
+			<strong>{{ messages | length }}</strong>
+			messages dans les discussions sur les tricks</li>
+		<li class="mb-2">
+			<strong>{{ users | length }}</strong>
+			utilisateurs approuvés</li>
+		<li class="mb-2">
+			<strong>{{ pictures | length }}</strong>
+			images et
+			<strong>{{ videos | length }}</strong>
+			vidéos pour illustrer les tricks</li>
+	</ul>
+
+    {% endblock %}
+
+	
+
+{% endblock %}

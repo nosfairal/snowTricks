@@ -1,0 +1,62 @@
+{% extends 'admin/home.html.twig' %}
+
+{% block title %}Tricks admin
+{% endblock %}
+
+{% block gestion %}
+
+	<h2 class="text-center">Gestion des tricks</h2>
+
+	<a href="{{ path('new-trick') }}" style="color:black;">Créer un nouveau trick <i class="bi bi-plus"></i></a>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>nom</th>
+				<th>Description</th>
+				<th>Création</th>
+				<th>Dernière modification</th>
+				<th>Nombre de messages</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for trick in tricks %}
+				<tr>
+					<td>{{ trick.id }}</td>
+					<td>{{ trick.name }}</td>
+					<td>{{ trick.description }}</td>
+					<td>{{ trick.createdAt ? trick.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+					<td>{{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+					<td>{{ trick.messages | length }}
+						<i class="bi bi-chat-left-text-fill"></i>
+					</td>
+					<td>
+						<div class="d-flex align-items-start">
+							<div class="mt-1 me-1">
+								<a class="btn btn-info" href="{{ path('show-trick', {'slug': trick.slug, 'group': trick.groupTrick.slug}) }}">
+									<i class="bi bi-eye"></i>
+								</a>
+							</div>
+							<div class="mt-1 me-1">
+								<a class="btn btn-primary" href="{{ path('edit-trick', {'slug': trick.slug}) }}" title="Edit the trick {{ trick.name }}">
+									<i class="bi bi-pencil-fill"></i>
+								</a>
+							</div>
+							<div class="mt-1 me-1">
+								<a class="btn btn-danger" href="{{ path('delete-trick', {'id': trick.id}) }}">
+									<i class="bi bi-trash"></i>
+								</a>
+							</div>
+						</div>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

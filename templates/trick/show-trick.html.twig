@@ -26,9 +26,8 @@
                     <hr class="my-3"/>
                     <h5 class="card-title text-center">Photos et vidéos</h5>
                     <button id="seeMedia" class="btn btn-primary">Voir les photos et vidéos</button>
-                    <section class="row" id="media-show-trick" >
-                        <div class="col-lg-6 col-md-12">
-                            <div id="carousel" class="carousel slide mt-3 mb-2" data-ride="carousel">
+                    <section class="row" id="media-show-trick" >                        
+                            {#<div id="carousel" class="carousel slide mt-3 mb-2" data-ride="carousel">
                                 <ol class="carousel-indicators">
                                     {%  set isFirst = true %}
                                     {% for picture in trick.pictures %}
@@ -62,9 +61,13 @@
                                         <span class="carousel-control-next-icon"></span>
                                     </a>                         
                             </div>
-                        </div>                                          
-                        <div class="col-lg-6 col-md-12">
-                            <div id="carousel-v" class="carousel slide mt-3 mb-2" data-ride="carousel">
+                        </div>#}
+                        {#<div class="col-lg-6 col-md-12">
+                        {% for picture in trick.pictures %}
+                            <img src="{{ asset ('uploads/pictures/' ~  picture.filename) }}" class="mb-2" width="300" height="250" alt="{{ picture.title }}">
+                        {% endfor %}
+                        </div>#}                                    
+                            {#<div id="carousel-v" class="carousel slide mt-3 mb-2" data-ride="carousel">
                                 <ol class="carousel-indicators">
                                     {%  set isFirst = true %}
                                     {% for video in trick.videos %}
@@ -97,8 +100,34 @@
                                 <a class="carousel-control-next" href="#carousel-v" data-slide="next">
                                     <span class="carousel-control-next-icon"></span>
                                 </a> 
-                            </div>
-                        </div>
+                            </div>#}
+                            {#<div class="col-lg-6 col-md-12">
+                            {% for video in trick.videos %}
+                            <iframe class="w-100" src="{{ video.videoUrl | formatVideo }}"  height="250px" width="300px" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></br>
+                            {% endfor %} 
+                            </div>#}
+                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 ">
+
+                                {% for picture in trick.pictures %}
+                                    <div class="col position-relative">
+                                        <div class="ratio ratio-4x3 mt-3">
+                                            {#<div style="background: transparent url({{ asset('uploads/pictures/' ~ picture.filename) }}) no-repeat center center; background-size:cover;" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ picture.title | capitalize }}"></div>#}
+                                            <a href="{{ asset('uploads/pictures/' ~ picture.filename) }}" title="...">
+                                                <img src="{{ asset('uploads/pictures/' ~ picture.filename) }}" class="img-show-trick" width="150em" height="100em"data-bs-toggle="tooltip" data-bs-placement="top" title="{{ picture.title | capitalize }}">
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                                {% for video in trick.videos %}
+                                    <div class="col position-relative">
+                                        <div class="ratio ratio-4x3 mt-3 bg-dark">
+                                            <iframe src="{{ video.videoUrl | formatVideo }}" width="150rem" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ video.title | capitalize }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                            </div>    
                     </section> 
                     <hr class="my-3"/>
                     <h5 class="card-title text-center">Description</h5>
@@ -139,11 +168,6 @@
     {% block javascripts %}
         
         {{ parent() }}
- 
-    {#<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    #}
     <script>
         $(function () {     
 

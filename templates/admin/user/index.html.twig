@@ -1,0 +1,62 @@
+{% extends 'admin/home.html.twig' %}
+
+{% block title %}Gérer les membres
+{% endblock %}
+
+{% block gestion %}
+
+	<h2 class="text-center">Gestion des membres</h2>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Avatar</th>
+				<th>Pseudo</th>
+				<th>Addresse mail</th>
+				<th>Adresse mail vérifiée?</th>
+				<th>Roles</th>
+				<th>Nombre de messages</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for user in users %}
+				<tr>
+					<td>{{ user.id }}</td>
+					<td>
+                    {% if user.avatar %}
+						<img src="{{ asset ('uploads/avatars/' ~  user.avatar) }}" width="50rem" height="50rem">
+                    {% else %}
+                        <span class="badge rounded-pill bg-warning">Pas d'avatar</span>
+                    {% endif %}
+					</td>
+					<td>{{ user.userName }}</td>
+					<td>{{ user.email }}</td>
+					<td>
+						<span class="badge rounded-pill bg-{{ (user.isVerified == 1) ? 'success' : 'warning' }}">
+							{{ (user.isVerified == 1) ? 'YES' : 'NO' }}
+						</span>
+					</td>
+					<td>{{ user.roles | join(', ') }}</td>
+					<td>{{ user.messages | length }}
+						<i class="bi bi-chat-left-text-fill"></i>
+					</td>
+					<td>
+						<div class="d-flex align-items-start">
+							<form class="" method="post" action="{{ path('delete-user', {'id': user.id}) }}" onsubmit="return confirm('Êtes vous sûr.e de vouloir supprimer ce membre?');">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+									<button class="user-delete btn" style="color:red;"><i class="bi bi-trash-fill"></i></button>
+							</form>
+						</div>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}

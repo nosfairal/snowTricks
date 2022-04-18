@@ -12,6 +12,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/video")
+ */
+
 class VideoController extends AbstractController
 {
     protected $videoRepository;
@@ -25,12 +29,23 @@ class VideoController extends AbstractController
         $this->entityManager = $entityManager;
     }
     /**
-     * @Route("/video", name="app_video")
+     * @Route("/index", name="app_video")
      */
     public function index(): Response
     {
         return $this->render('video/index.html.twig', [
             'controller_name' => 'VideoController',
+        ]);
+    }
+
+    /**
+     * @Route("/admin", name="video_admin")
+     * @IsGranted("ROLE_ADMIN", message="You have to be authenticated as an admin to see this page")
+     */
+    public function adminIndex(): Response
+    {
+        return $this->render('admin/video/index.html.twig', [
+            'videos' => $this->videoRepository->findAll(),
         ]);
     }
 

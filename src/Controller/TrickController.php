@@ -50,6 +50,17 @@ class TrickController extends AbstractController
     }
 
     /**
+     * @Route("/admin", name="trick_admin", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN", message="Vous devez être authentifié.e en tant qu'admin pour avoir accès à cette page")
+     */
+    public function adminIndex(): Response
+    {
+        return $this->render('admin/trick/index.html.twig', [
+            'tricks' => $this->repository->findAll(),
+        ]);
+    }
+
+    /**
      * @Route("/{group}/trick-details/{slug}", name="show-trick")
      */
     public function show(Trick $trick, Request $request, MessageRepository $mr): Response

@@ -16,6 +16,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/message")
+ */
 class MessageController extends AbstractController
 {
     public function __construct(MessageRepository $repository, PaginationService $pagination)
@@ -25,13 +28,24 @@ class MessageController extends AbstractController
     }
 
     /**
-     * @Route("/admin/message", name="app_message")
+     * @Route("/index", name="app_message")
      */
     public function index(): Response
     {
         $messages = $this->repository->findAll();
         return $this->render('message/index.html.twig', [
             'messages' => $messages
+        ]);
+    }
+
+    /**
+     * @Route("/admin", name="message_admin")
+     * @IsGranted("ROLE_ADMIN", message="Vous devez être authentifié.e en tant qu'admin pour avoir accès à cette page")
+     */
+    public function adminIndex(): Response
+    {
+        return $this->render('admin/message/index.html.twig', [
+            'messages' => $this->repository->findAll(),
         ]);
     }
 
@@ -108,6 +122,21 @@ class MessageController extends AbstractController
             //return new Response();
             
         }
+    }
+
+    /**
+     * @Route("/effacerMessage/{id}", name="delete-message")
+     * @IsGranted("ROLE_ADMIN", message="Vous devez être authentifié en tant qu'admin pour pouvoir effacer un message")
+     */
+    public function delete(Request $request, Message $message, $id)
+    {
+        $message = $this->repository->find($id);
+        $this->repository->remove($message);
+
+        // Generate URL + redirection
+        $referer = $request->headers->get('referer');
+
+        return $this->redirect($referer);
     }
 
 

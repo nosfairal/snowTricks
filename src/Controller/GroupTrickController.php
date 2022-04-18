@@ -9,6 +9,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/group")
+ */
+
 class GroupTrickController extends AbstractController
 {
 
@@ -26,6 +30,16 @@ class GroupTrickController extends AbstractController
         return $this->render('group_trick/index.html.twig', [
             'controller_name' => 'GroupTrickController',
             'groups' => $groups
+        ]);
+    }
+
+    /**
+     * @Route("/admin", name="group_admin")
+     */
+    public function adminIndex(GroupTrickRepository $groupRepository): Response
+    {
+        return $this->render('admin/group/index.html.twig', [
+            'groups' => $groupRepository->findAll(),
         ]);
     }
 }

@@ -1,0 +1,56 @@
+{% extends 'admin/home.html.twig' %}
+
+{% block title %}Gestions des images
+{% endblock %}
+
+{% block gestion %}
+
+	<h2 class="text-center">Gestions des images</h2>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Trick</th>
+				<th>Titre</th>
+				<th>Description</th>
+				<th>Image</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for picture in pictures %}
+				<tr>
+					<td>{{ picture.id }}</td>
+					<td>{{ picture.trick.id }}</td>
+					<td>{{ picture.title }}</td>
+					<td>{{ picture.description }}</td>
+					<td>
+						<div class="ratio ratio-4x3 mt-3">
+							<div style="background: transparent url({{ asset('uploads/pictures/' ~ picture.filename) }}) no-repeat center center; background-size:cover;" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ picture.title | capitalize }}"></div>
+						</div>
+					</td>
+					<td>
+						<div class="d-flex align-items-start">
+							<div class="mt-1 me-1">
+								<a class="btn btn-info" href="{{ path('show-trick', {'slug': picture.trick.slug, 'group': picture.trick.groupTrick.slug}) }}#medias">
+									<i class="bi bi-eye"></i>
+								</a>
+							</div>
+							<div class="mt-1 me-1">
+								<a class="btn btn-primary" href="{{ path('picture-edit', {'id': picture.id}) }}" title="Edit the picture {{ picture.title }}">
+									<i class="bi bi-pencil-fill"></i>
+								</a>
+							</div>
+						</div>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">no picture found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}
