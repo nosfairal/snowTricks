@@ -49,21 +49,21 @@ Download zip files or clone the project repository with github (see GitHub docum
 
 You need to configure at least these lines in .env file with yours own datas:
 
-###> symfony/mailer ###
+``###> symfony/mailer ###
 # MAILER_DSN=smtp://localhost
 # MAILER_USER=smtp-user-email-address@domain.com
 ###< symfony/mailer ###
 ###< symfony/mailer ###
 ###> doctrine/doctrine-bundle ###
-DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7"
+DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7"``
 
 **Install the project**
 
 1.   If needed, install Composer by [following the official instructions.](https://getcomposer.org/download/)
 
 2.   In your cmd, go to the directory where you want to install the project and install dependencies with composer:
-### $ cd some\directory 
-### $ composer install
+``$ cd some\directory ``
+``$ composer install``
 
 Dependencies should be installed in your project (check vendor directory).
 
