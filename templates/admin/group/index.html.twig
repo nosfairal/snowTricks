@@ -5,31 +5,33 @@
 
 {% block gestion %}
 
-	<h2>Group of tricks</h2>
+	<h2 class="text-center">Groupe de tricks</h2>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Name</th>
-				<th>Tricks</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for group in groups %}
+	<div class = "table-responsive">
+		<table class="table table-striped ">
+			<thead>
 				<tr>
-					<td>{{ group.id }}</td>
-					<td>{{ group.name }}</td>
-					<td>{{ group.tricks | length }}
-						<i class="bi bi-clipboard"></i>
-					</td>
+					<th>Id</th>
+					<th>Nom</th>
+					<th>Tricks</th>
 				</tr>
-			{% else %}
-				<tr>
-					<td colspan="7">no group found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				{% for group in groups %}
+					<tr>
+						<td>{{ group.id }}</td>
+						<td>{{ group.name }}</td>
+						<td>{{ group.tricks | length }}
+							<i class="bi bi-clipboard"></i>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="7">no group found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 
 {% endblock %}

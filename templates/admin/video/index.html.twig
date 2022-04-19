@@ -7,50 +7,52 @@
 
 	<h2 class="text-center">Gestion des vidéos</h2>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Trick</th>
-				<th>Title</th>
-				<th>URL</th>
-				<th>Video</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for video in videos %}
+	<div class = "table-responsive">
+		<table class="table table-striped ">
+			<thead>
 				<tr>
-					<td>{{ video.id }}</td>
-					<td>{{ video.trick.name }}</td>
-					<td>{{ video.title }}</td>
-					<td>
-						<a href="{{ video.videoUrl }}" target="_blank">{{ video.videoUrl }}</a>
-						<a href="{{ video.videoUrl }}" target="_blank">
-							<i class="bi bi-link"></i>
-						</a>
-					</td>
-					<td>
-						<div class="ratio ratio-4x3 bg-dark">
-							<iframe src="{{ video.videoUrl | formatVideo }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ video.title | capitalize }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-						</div>
-					</td>
-					<td>
-						<div class="d-flex align-items-start">
-							<div class="mt-1 me-1">
-								<a class="btn btn-info" href="{{ path('show-trick', {'slug': video.trick.slug, 'group': video.trick.groupTrick.slug}) }}#medias">
-									<i class="bi bi-eye"></i>
-								</a>
+					<th>Id</th>
+					<th>Trick</th>
+					<th>Title</th>
+					<th>URL</th>
+					<th>Video</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for video in videos %}
+					<tr>
+						<td>{{ video.id }}</td>
+						<td>{{ video.trick.name }}</td>
+						<td>{{ video.title }}</td>
+						<td>
+							<a href="{{ video.videoUrl }}" target="_blank">{{ video.videoUrl }}</a>
+							<a href="{{ video.videoUrl }}" target="_blank">
+								<i class="bi bi-link"></i>
+							</a>
+						</td>
+						<td>
+							<div class="ratio ratio-4x3 bg-dark">
+								<iframe src="{{ video.videoUrl | formatVideo }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ video.title | capitalize }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 							</div>
-						</div>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="7">no video found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+						</td>
+						<td>
+							<div class="d-flex align-items-start">
+								<div class="mt-1 me-1">
+									<a class="btn btn-info" href="{{ path('show-trick', {'slug': video.trick.slug, 'group': video.trick.groupTrick.slug}) }}#medias">
+										<i class="bi bi-eye"></i>
+									</a>
+								</div>
+							</div>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="7">no video found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 
 {% endblock %}

@@ -14,49 +14,55 @@
                 <span class="d-none d-md-inline">Gérer les
                 </span>tricks</a>
             <a class="btn btn-primary col-md-2 col-6 {{ app.request.get('_route') == 'message_admin' ? 'active' }}" href="{{ path('message_admin') }}">
-                <i class="far fa-comments"></i>
+                <i class="bi bi-chat-left-text-fill"></i>
                 <span class="d-none d-md-inline">Gérer les
                 </span>messages</a>
             <a class="btn btn-primary col-md-2 col-6 {{ app.request.get('_route') == 'user_admin' ? 'active' }}" href="{{ path('user_admin') }}">
-                <i class="far fa-user"></i>
+                <i class="bi bi-person-check-fill"></i>
                 <span class="d-none d-md-inline">Gérer les
                 </span>membres</a>
             <a class="btn btn-primary col-md-2 col-6 {{ app.request.get('_route') == 'group_admin' ? 'active' }}" href="{{ path('group_admin') }}">
-                <i class="far fa-object-group"></i>
+                <i class="bi bi-collection-fill"></i>
                 <span class="d-none d-md-inline">Gérer les
                 </span>groupes</a>
             <a class="btn btn-primary col-md-2 col-6 {{ app.request.get('_route') == 'picture_admin' ? 'active' }}" href="{{ path('picture_admin') }}">
-                <i class="far fa-image"></i>
+                <i class="bi bi-image"></i>
                 <span class="d-none d-md-inline">Gérer les
                 </span>images</a>
             <a class="btn btn-primary col-md-2 col-6 {{ app.request.get('_route') == 'video_admin' ? 'active' }}" href="{{ path('video_admin') }}">
-                <i class="fas fa-film"></i>
+                <i class="bi bi-film"></i>
                 <span class="d-none d-md-inline">Gérer les
                 </span>vidéos</a>
         </div>
     {% endblock %}
     {% block gestion %}
-    <p>Bienvenue sur votre interface de gestion<br>
-		Quelques statistiques sur votre site:</p>
+    <div class="container text-center statistics">
+        <p>Bienvenue sur votre interface de gestion<br>
+            Quelques statistiques sur votre site:</p>
 
-	<ul>
-		<li class="mb-2">
-			<strong>{{ tricks | length }}</strong>
-			tricks dans
-			<strong>{{ groups | length }}</strong>
-			groupes</li>
-		<li class="mb-2">
-			<strong>{{ messages | length }}</strong>
-			messages dans les discussions sur les tricks</li>
-		<li class="mb-2">
-			<strong>{{ users | length }}</strong>
-			utilisateurs approuvés</li>
-		<li class="mb-2">
-			<strong>{{ pictures | length }}</strong>
-			images et
-			<strong>{{ videos | length }}</strong>
-			vidéos pour illustrer les tricks</li>
-	</ul>
+        <ul class="">
+            <li class="mb-2">
+                <strong>{{ tricks | length }}</strong>
+                tricks dans
+                <strong>{{ groups | length }}</strong>
+                groupes</li>
+            <li class="mb-2">
+                <strong>{{ messages | length }}</strong>
+                messages dans les discussions sur les tricks</li>
+            <li class="mb-2">
+                <strong>{{ users | length }}</strong>
+                {% if users|length > 1 %}
+                    utilisateurs approuvés
+                {% else %}
+                    utilisateur approuvé                 
+                {% endif %}</li>
+            <li class="mb-2">
+                <strong>{{ pictures | length }}</strong>
+                images et
+                <strong>{{ videos | length }}</strong>
+                vidéos pour illustrer les tricks</li>
+        </ul>
+    </div>
 
     {% endblock %}
 
