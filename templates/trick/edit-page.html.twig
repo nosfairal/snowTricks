@@ -105,7 +105,7 @@
 					</button>
 					<a href="#eraseTrick" data-bs-toggle="modal" type="submit" data-trick="{{ path('delete-trick', {id:trick.id}) }}" class="btn btn-danger trick-delete">
 						<i class="bi bi-eraser-fill"></i>
-						Effacer
+						Delete
 					</a>
 				</div>
 			</div>		
@@ -116,8 +116,8 @@
 	
 	</div>
 	</div>
-		<!-- Modal Picture -->
-        <div class="modal fade" id="erasePicture" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<!-- Modal -->
+        <div class="modal fade" id="eraseTrick" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -127,11 +127,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Etes vous certain de vouloir effacer cette image ?</p>
+                        <p>Etes vous certain de vouloir effacer ce trick ?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Diantre non !</button>
-                        <button id="picture-delete" type="button" class="btn btn-primary">Parfaitement !</button>
+                        <button id="trick-delete" type="button" class="btn btn-primary">Parfaitement !</button>
                     </div>
                 </div>
             </div>
@@ -142,16 +142,18 @@
 	{{ parent() }}
 	{{ encore_entry_script_tags('newPicture') }}
 	<script>
-		$('#picture-delete').click(function () {
-			let picture_url = $(this).data('picture');
-                console.log(picture_url)
-                $.ajax({picture_url,
-                method: 'get'
-                })
-			/*$('.picture-delete').click(function () {
-                let id = $(this).data('picture');
-                $('#picture-delete').data('picture', id)
-        	})*/
-		})
+		$(function () {
+			$('#trick-delete').click(function () {
+			let trick_url = $(this).data('trick');
+			console.log(trick_url)
+			$.ajax({url: trick_url, method: 'get'}).done(function () { // Redirect to home page
+			window.location.replace("{{ path('home') }}");
+			})
+			})
+			$('.trick-delete').click(function () {
+			let id = $(this).data('trick');
+			$('#trick-delete').data('trick', id)
+			})
+		})	
 	</script>
 {% endblock %}

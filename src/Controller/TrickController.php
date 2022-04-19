@@ -279,9 +279,10 @@ class TrickController extends AbstractController
     public function delete(Trick $trick, $id)
     {
         $trick = $this->repository->find($id);
-        $this->repository->remove($trick);
+        $this->repository->remove($trick);        
         // Generate URL + redirection
         return $this->redirectToRoute('home');
+        $this->addFlash('success', 'Trick supprimé avec succès');
     }
 
     /**
