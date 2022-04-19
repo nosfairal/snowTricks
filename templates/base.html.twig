@@ -44,6 +44,11 @@
                                 <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
                             </li>
                             {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('admin_home') }}">Administration</a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </div>            
                 </nav>
@@ -96,6 +101,17 @@
                         role="button"
                         data-mdb-ripple-color="dark"
                         ><i class="bi bi-box-arrow-in-right" style="font-size:2rem;"></i
+                    ></a>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a
+                        class="btn btn-link btn-floating btn-lg text-dark m-2link tooltip-link"
+                        data-toggle="tooltip"
+                        title="administration"
+                        href="{{ path('admin_home') }}"
+                        role="button"
+                        data-mdb-ripple-color="dark"
+                        ><i class="bi bi-back" style="font-size:2rem;"></i
                     ></a>
                     {% endif %}
 
