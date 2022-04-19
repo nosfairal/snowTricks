@@ -8,7 +8,7 @@ This is the sixth project of the formation Application Developer - PHP / Symfony
 ## Table of contents
 1.  Prerequisites and technologies
     -   Server
-    -   Languages and libraries
+    -   Framework, languages and libraries
 
 2.  Installation
 
@@ -49,21 +49,24 @@ Download zip files or clone the project repository with github (see GitHub docum
 
 You need to configure at least these lines in .env file with yours own datas:
 
-``###> symfony/mailer ###
+``` ###> symfony/mailer ###
 # MAILER_DSN=smtp://localhost
 # MAILER_USER=smtp-user-email-address@domain.com
 ###< symfony/mailer ###
 ###< symfony/mailer ###
 ###> doctrine/doctrine-bundle ###
-DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7"``
+DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7"
+``` 
 
 **Install the project**
 
 1.   If needed, install Composer by [following the official instructions.](https://getcomposer.org/download/)
 
 2.   In your cmd, go to the directory where you want to install the project and install dependencies with composer:
-``$ cd some\directory ``
-``$ composer install``
+   
+   ``$ cd some\directory ``
+   
+   ``$ composer install``
 
 Dependencies should be installed in your project (check vendor directory).
 
@@ -71,15 +74,15 @@ Dependencies should be installed in your project (check vendor directory).
 
 1.  If the database does not exist, create it with the following command in the project directory:
 
-### $ php bin/console doctrine:database:create
+    ``$ php bin/console doctrine:database:create``
 
 2.  Create database structure thanks to migrations:
 
-### $ php bin/console doctrine:migrations:migrate
+    ``$ php bin/console doctrine:migrations:migrate``
 
 3. Install fixtures to have first contents
 
-### $ php bin/console doctrine:fixtures:load
+    ``$ php bin/console doctrine:fixtures:load``
 
 Your database should be updated with contents.
 
