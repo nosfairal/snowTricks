@@ -34,6 +34,8 @@
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
 		{% endfor %}
+
+        <a class="mb-2 mt-4" href="{{ path('new-trick') }}" style="color:#007286;text-decoration:none;font-size:1.5rem;">Créer un nouveau trick <i class="bi bi-plus"></i></a>
                 {#<div id="trick-section" data-bs-spy="scroll" data-bs-offset="0" tabindex="0"></div>#}
             <div id="tricks" class="row justify-content-around text-center">
 			    {{ include ('trick/tricks-list.html.twig') }}
