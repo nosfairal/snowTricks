@@ -136,16 +136,16 @@
                     <hr class="my-3"/>
                     <h5 class="card-title text-center">Commentaires</h5>
                     {% if is_granted('ROLE_USER') %}                    
-                    {{ form_start(form) }}
+                {{ form_start(form, {'attr': {'class': 'mx-2 my-3'}}) }}
                 <div class="row">
-                    <div class="col my-2">
-                        {{ form_label(form.content) }}{{ form_widget(form.content) }}
-                    </div>
-                    <div class="col my-2">
-                        {{ form_row(form.submit) }}
-                    </div>
-                    {{ form_end(form) }}
+                    {{ form_label(form.content) }}
+                    {{ form_widget(form.content, {'attr': {'class': 'col'}}) }}
+                    <button class="btn btn-primary col-auto">
+                        <i class="bi bi-card-text"></i>
+                        <span class="d-none d-md-inline">{{ form_end(form) }}</span>
+                    </button>
                 </div>
+                
                     {% endif %}
                                      
                     {#<h5>{{ loop.index }} - {% if message.author.avatar %}  <img src="{{ asset ('uploads/avatars/' ~  message.author.avatar) }}" width="50rem" height="50rem"> {% endif %} {{ message.content }}</5>

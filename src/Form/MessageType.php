@@ -18,12 +18,6 @@ class MessageType extends AbstractType
             ->add('content', TextType::class, [
                 'label' => ' ',
                 'attr' => ['placeholder' => 'Votre message']
-            ])
-            ->add('submit', SubmitType::class, [
-                'label'=>'Ajouter votre commentaire',
-                'attr' => [
-                    'class' => 'btn btn-block btn-secondary py-2 px-3'
-                ]
             ]);
     }
 
