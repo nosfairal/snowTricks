@@ -1,5 +1,5 @@
 body {
-    background-color: lightgray;
+    background-color: #f9fafe;
 }
 
 @import "~bootstrap/scss/bootstrap";
@@ -55,9 +55,8 @@ body {
   padding-bottom: 10rem;
 }
 
-#new-trick {
-  padding-top: 5rem;
-  padding-bottom: 15rem;
+.new-trick {
+  padding-bottom: 5rem;
 }
 .statistics {
   padding-bottom: 16rem;
@@ -77,6 +76,9 @@ body {
   #seeMedia{
     display: none;
   }
+  #editMedia{
+    display: none;
+  }
 
 }
 
@@ -91,6 +93,9 @@ body {
     display: none !important;
   }
   #media-show-trick{
+    display: none;
+  }
+  #showEditMedia{
     display: none;
   }
   .img-show-trick{

@@ -1,6 +1,26 @@
 {% extends 'base.html.twig' %}
 {% block title %}Modifier un trick{% endblock %}
 {% block content %}
+		<!-- Modal -->
+        <div class="modal fade" id="eraseTrick" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            <span class="badge bg-danger">Attention</span>
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Etes vous certain de vouloir effacer ce trick ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Diantre non !</button>
+                        <button id="trick-delete" type="button" class="btn btn-primary">Parfaitement !</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 		{% for rubrique, messages in app.flashes %}
 			<div class="alert alert-{{ rubrique }} alert-dismissible fade show" id="success-flash" role="alert">
 				{% for message in messages %}
@@ -9,15 +29,14 @@
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
 		{% endfor %}
-        <h1 class="text-center mt-3 mb-3 back-h1">Modification du trick :
-		{{ trick.name }}</h1>			
-
-	<div class="container">
+	<div class="container">        
+		<h1 class="text-center mt-3 mb-3 back-h1">Modification du trick :
+		{{ trick.name }}</h1>	
 		{{ form_start(form) }}
 		{{ form_errors(form) }}
-		<div class="row">
-			<div class="card  mx-auto col-12 col-lg-8 mt-4 mb-2">
-				<div>
+        <div class="row">
+            <div class="card  mx-auto col-12 col-lg-8 mt-4 mb-4">
+                <div>
 					<img src=
                         {% if trick.pictures[0].filename is defined %}
                             "{{ asset ('uploads/pictures/' ~ trick.pictures[0].filename) }}"
@@ -40,104 +59,87 @@
 						</a>
 					</p>
 				</div>
-				<div class="card-body text-center">
-					<h5 class="card-title text-center">{{ form_row(form.name) }}</h5>
-					<hr class="my-3"/>
-					<p class="card-text text-muted"> Publié par : {{ trick.author.userName }} | le : {{ trick.createdAt|date("d/m/Y \\à H:i") }} | Catégorie : {{ form_row(form.groupTrick) }} | commentaires</p>
-						{#{% if attribute.lastUpdate  is not null %}<p>Dernière modification le : {{ attribute.lastUpdate|date("d/m/Y \\à H:i") }}</p>{% endif %}#}
-					<hr class="my-3"/>
-					<h5 class="card-title text-center">Photos et vidéos</h5>
-					<div class="row">
-						<div class="col">
-							{% for picture in trick.pictures |slice(1, trick.pictures| length) %}
-							{{ loop.index }} - <img src="{{ asset ('uploads/pictures/' ~  picture.filename) }}" height="200px" width="300px" id="{{ picture.id }}" class="">
-							<p class="" style="">
-								<a href="{{ path('picture-edit', {id:picture.id}) }}" style="color:black;">
-									<i class="bi bi-pencil-fill"></i>					
-								</a>
-								<form class="" method="post" action="{{ path('delete-picture', {'id': picture.id}) }}" onsubmit="return confirm('Êtes vous sûr.e de vouloir effacer cette image?');">
-									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ picture.id) }}">
-									<button class="picture-delete" style="color:red;"><i class="bi bi-trash-fill"></i></button>
-								</form>
-							</p>
-							{% endfor %}
-						<div>
-						<div class="col">
-							{% for video in trick.videos %}
-							{{ loop.index }} - <iframe class="" src="{{ video.videoUrl | formatVideo }}"  height="200px" width="300px" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-							<p class="" style="">
-								<a href="{{ path('video-edit', {id:video.id}) }}" style="color:black;">
-									<i class="bi bi-pencil-fill"></i>					
-								</a>
-								<form class="" method="post" action="{{ path('delete-video', {'id': video.id}) }}" onsubmit="return confirm('Êtes vous sûr.e de vouloir effacer cette vidéo?');">
-									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ video.id) }}">
-									<button class="video-delete" style="color:red;"><i class="bi bi-trash-fill"></i></button>
-								</form>
-							</p>
-							{% endfor %}
-						<div>
-					
+                <div class="card-body text-center">
+                    <h5 class="card-title text-center">{{ form_row(form.name) }}</h5>
+                    <hr class="my-3"/>
+                    <p class="card-text text-muted"> Publié par : {{ trick.author.userName }} | le : {{ trick.createdAt|date("d/m/Y \\à H:i") }} | Catégorie : {{ form_row(form.groupTrick) }}</p>
+                        {#{% if attribute.lastUpdate  is not null %}<p>Dernière modification le : {{ attribute.lastUpdate|date("d/m/Y \\à H:i") }}</p>{% endif %}#}
+                    <hr class="my-3"/>
+                    <h5 class="card-title text-center">Photos et vidéos</h5>
+                    <button type="button" id="editMedia" class="btn btn-primary">Modifier les photos et vidéos</button>
+					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5" id="showEditMedia">
+						{% for picture in trick.pictures %}
+							<div class="col position-relative">
+								<div class="ratio ratio-4x3 mt-3">
+									{#<div style="background: transparent url({{ asset('uploads/pictures/' ~ picture.filename) }}) no-repeat center center; background-size:cover;" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ picture.title | capitalize }}"></div>#}
+									<a href="{{ asset('uploads/pictures/' ~ picture.filename) }}" title="{{ picture.title }}">
+										<img src="{{ asset('uploads/pictures/' ~ picture.filename) }}" class="img-show-trick" width="150em" height="100em"data-bs-toggle="tooltip" data-bs-placement="top" title="{{ picture.title | capitalize }}">
+									</a>											
+								</div>
+								<div class="" style="">
+									<a href="{{ path('picture-edit', {id:picture.id}) }}" style="color:black;">
+										<i class="bi bi-pencil-fill col"></i>					
+									</a>
+									<form class="col" method="post" action="{{ path('delete-picture', {'id': picture.id}) }}" onsubmit="return confirm('Êtes vous sûr.e de vouloir effacer cette image?');">
+										<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ picture.id) }}">
+										<button class="picture-delete btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
+									</form>
+								</div>
+							</div>
+						{% endfor %}
 
-						<div class="row">
-							<div class="col">
-								<div id="pictures" class="pictures" data-prototype="{{ form_widget(form.pictures.vars.prototype)|e('html_attr') }}">
-									{{ form_widget(form.pictures) }}
+						{% for video in trick.videos %}
+							<div class="col position-relative">
+								<div class="ratio ratio-4x3 mt-3 bg-dark">
+									<iframe src="{{ video.videoUrl | formatVideo }}" width="150rem" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ video.title | capitalize }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 								</div>
-								<button id="add-picture" class="add-picture" type="button" data-collection-holder-class="pictures">Ajouter une image</button>
-							</div>
-							<div class="col">
-								<div id="videos" class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
-									{{ form_widget(form.videos) }}
+								<div class="" style="">
+									<a href="{{ path('video-edit', {id:video.id}) }}" style="color:black;">
+										<i class="bi bi-pencil-fill"></i>					
+									</a>
+									<form class="" method="post" action="{{ path('delete-video', {'id': video.id}) }}" onsubmit="return confirm('Êtes vous sûr.e de vouloir effacer cette vidéo?');">
+										<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ video.id) }}">
+										<button class="video-delete btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></button>
+									</form>
 								</div>
-								<button id="add-video" class="add-video" type="button" data-collection-holder-class="videos">Ajouter une video</button>
 							</div>
-						</div>         
-						
-					</div>  
-					<hr class="my-3"/>
-					<h5 class="card-title text-center">Description</h5>
-					<p class="card-text text mb-2">{{ form_row(form.description) }}</p>                                        
-				</div>
-				<div class="edit-buttons">
+						{% endfor %}
+
+					</div>
+					<div class="row mt-2">
+						<div class="col">
+							<div id="pictures" class="pictures" data-prototype="{{ form_widget(form.pictures.vars.prototype)|e('html_attr') }}">
+								{{ form_widget(form.pictures) }}
+							</div>
+							<button id="add-picture" class="add-picture" type="button" data-collection-holder-class="pictures">Ajouter une image</button>
+						</div>
+						<div class="col">
+							<div id="videos" class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
+								{{ form_widget(form.videos) }}
+							</div>
+							<button id="add-video" class="add-video" type="button" data-collection-holder-class="videos">Ajouter une video</button>
+						</div>
+					</div>
+                    <hr class="my-3"/>
+                    <h5 class="card-title text-center">Description</h5>
+                    <p class="card-text text mb-2">{{ form_row(form.description) }}</p>                                        
+                </div>
+				<div class="text-center mb-2">
 					<button type="submit" class="btn btn-success save-btn">
 						<i class="bi bi-save-fill"></i>
-						Modifier
+						{{ form_end(form) }}Modifier
 					</button>
 					<a href="#eraseTrick" data-bs-toggle="modal" type="submit" data-trick="{{ path('delete-trick', {id:trick.id}) }}" class="btn btn-danger trick-delete">
 						<i class="bi bi-eraser-fill"></i>
-						Delete
+						Supprimer
 					</a>
 				</div>
-			</div>		
-				
-			
-		</div>
-		{{ form_end(form) }}
-	
-	</div>
-	</div>
-		<!-- Modal -->
-        <div class="modal fade" id="eraseTrick" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                            <span class="badge bg-danger">Attention</span>
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Etes vous certain de vouloir effacer ce trick ?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Diantre non !</button>
-                        <button id="trick-delete" type="button" class="btn btn-primary">Parfaitement !</button>
-                    </div>
-                </div>
             </div>
+            
         </div>
-	</div>	
-{% endblock %}
+    
+	</div>
+
 {% block javascripts %}
 	{{ parent() }}
 	{{ encore_entry_script_tags('newPicture') }}
@@ -154,6 +156,12 @@
 			let id = $(this).data('trick');
 			$('#trick-delete').data('trick', id)
 			})
-		})	
+			$('#editMedia').click(function(){
+                $('#showEditMedia').show();
+                $('#editMedia').hide();
+            })				
+		})
+		
 	</script>
+{% endblock %}
 {% endblock %}

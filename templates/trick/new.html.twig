@@ -5,6 +5,7 @@
 
 {% block content %}
     <div class="container text-center mt-3 px-4 new-trick">
+        <img src="{{ asset ('uploads/pictures/newTrick.png') }}" class="img-fluid">
         <p class="pt-4">
             Vous avez ici la possibilité d'ajouter un nouveau trick en complétant tous les champs de ce formulaire.
         </p>
@@ -44,10 +45,10 @@
             <div class="my-4">
                 <button type="submit" class="btn btn-success save-btn">
 					<i class="bi bi-save-fill"></i>
-					Ajouter un nouveau trick
+					{{ form_end(form) }} Ajouter un nouveau trick
 				</button>
             </div>
-            {{ form_end(form) }}
+            
         </div>
         </div>
         {% block javascripts %}
