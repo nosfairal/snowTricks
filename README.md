@@ -103,7 +103,7 @@ Your database should be updated with contents.
 
 1.  Complete the register form and confirm your inscription by clicking on the link you get by email.
 
-2.  Go to your database, table user, and at your line change the "roles" field from [] to [ROLE_ADMIN].
+2.  Go to your database, table user, and at your line change the "roles" field from [] to ["ROLE_ADMIN"].
 
 You are now administrator of your website and can manage it. 
 
