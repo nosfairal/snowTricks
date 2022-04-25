@@ -31,7 +31,7 @@ body {
 }
 
 #register-form {
-  padding-top: 10rem;
+  padding-top: 5rem;
   padding-bottom: 10rem;
 }
 
@@ -67,39 +67,42 @@ body {
 }
 
 @media screen and (min-width: 640px) {
-  footer {
+  .footer {
     display: none; 
   }
-  .banner-mobil{
+  .banner-mobil {
     display:none;
   }
-  #seeMedia{
+  #seeMedia {
     display: none;
   }
-  #editMedia{
+  #editMedia {
     display: none;
   }
 
 }
 
 @media screen and (max-width: 639px) {
-  .banner{
+  .banner {
     display:none;
   }
-  header{
+  header {
     display:none;
   }
   div>a.to-trick-up {
     display: none !important;
   }
-  #media-show-trick{
+  #media-show-trick {
     display: none;
   }
-  #showEditMedia{
+  #showEditMedia {
     display: none;
   }
-  .img-show-trick{
+  .img-show-trick {
     width: 300px;
     height: 200px;
+  }
+  .fixed-bottom {
+    display: none;
   }
 }

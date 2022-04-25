@@ -6,7 +6,8 @@
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
-    <section class="container" id="register-form">
+    <section class="container text-center" id="register-form">
+        <img src="{{ asset ('uploads/pictures/registerSnowTricks.png') }}" class="img-fluid">
         <div class="row">
             <div class="col">
                 <h1 class="text-center">Inscription</h1>
@@ -23,6 +24,9 @@
                     <button type="submit" class="btn btn-primary btn-lg my-3">S'inscrire</button>
                 {{ form_end(registrationForm) }}
             <div>
+            <div class="small my-4">
+                    <a href="{{ path('app_login') }}">Vous avez déjà un compte?</a>
+                </div>
         </div>    
     </section>
 {% endblock %}
