@@ -1,5 +1,6 @@
 body {
     background-color: #f9fafe;
+    padding-bottom: 4rem;
 }
 
 @import "~bootstrap/scss/bootstrap";
@@ -65,6 +66,7 @@ body {
 .user-admin {
   padding-bottom: 5rem;
 }
+
 
 @media screen and (min-width: 640px) {
   .footer {

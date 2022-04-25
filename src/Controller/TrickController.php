@@ -259,10 +259,8 @@ class TrickController extends AbstractController
 
 
             // Génération URL + redirection
-            // return $this->redirectToRoute('show-trick', [
-            //     'id' => $trick->getId(),
-            //     'slug' => $trick->getSlug()
-            // ]);
+            $referer = $request->headers->get('referer');
+            return $this->redirect($referer);
         }
 
         return $this->render('trick/edit-page.html.twig', [
