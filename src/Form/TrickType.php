@@ -13,6 +13,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 
@@ -26,6 +29,18 @@ class TrickType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'class' => 'form-control'
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Merci de renseigner le nom de ce trick',
+                    ]),
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Le nom du trick doit faire au moins {{ limit }} caractères',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 100,
+                        'maxMessage' => 'le nom du trick doit faire au plus {{ limit }} caractères'
+                    ]),
                 ]
             ])
             ->add('description', TextareaType::class,[

@@ -11,9 +11,10 @@
         </p>
         <div class="py-1">
             {{ form_start(form) }}
+            {{ form_errors(form) }}
             <div class="row my-1">
                 <div class="col">
-                    {{ form_label(form.name) }}{{ form_widget(form.name) }}
+                    {{ form_label(form.name) }}{{ form_row(form.name) }}
                 </div>
             </div>
             <div class="row my-1">

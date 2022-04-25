@@ -49,7 +49,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter notre politique de confidentialité',
                     ]),
                 ],
                 'attr' => [
@@ -68,7 +68,7 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Votre mot de passe :*',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => "Merci d'entrer un mot de passe",
                     ]),
                     new Length([
                         'min' => 6,
@@ -87,7 +87,7 @@ class RegistrationFormType extends AbstractType
                 ],
                 // make it optional so you don't have to re-upload the file
                 // every time you edit the Picture details
-                // 'required' => false,
+                'required' => false,
                 // unmapped fields can't define their validation using annotations
                 // in the associated entity, so you can use the PHP constraint classes
                 'constraints' => [

@@ -5,11 +5,13 @@ namespace App\Entity;
 use App\Repository\TrickRepository;
 use App\Entity\GroupTrick;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
+ * @UniqueEntity(fields={"name"}, message="Il existe déjà un trick avec ce nom")
  */
 class Trick
 {

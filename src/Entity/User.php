@@ -15,6 +15,7 @@ use DateTimeImmutable;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="Il existe déjà un compte avec cette adresse mail")
+ * @UniqueEntity(fields={"userName"}, message="Il existe déjà un membre avec ce pseudonyme")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -67,7 +68,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $userName;
 
