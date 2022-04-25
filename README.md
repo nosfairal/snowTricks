@@ -39,6 +39,19 @@ Libraries included via Composer (used in fixtures):
     . doctrine/doctrine-fixtures-bundle: ^3.4,
     . cocur/slugify: ^4.1
 
+Libraries included via Composer and Webpack Encore:
+
+    . "@hotwired/stimulus": "^3.0.0",
+    . "@popperjs/core": "^2.11.4",
+    . "@symfony/stimulus-bridge": "^3.0.0",
+    . "@symfony/webpack-encore": "^1.7.0",
+    . "bootstrap": "^5.1.3",
+    . "core-js": "^3.0.0",
+    . "font-awesome": "^4.7.0",
+    . "regenerator-runtime": "^0.13.2",
+    . "sass": "^1.49.9",
+    . "webpack-notifier": "^1.6.0"
+
 ## Installation
 
 **Download or clone**
@@ -85,4 +98,12 @@ Dependencies should be installed in your project (check vendor directory).
     ``$ php bin/console doctrine:fixtures:load``
 
 Your database should be updated with contents.
+
+**Registration and become administrator**
+
+1.  Complete the register form and confirm your inscription by clicking on the link you get by email.
+
+2.  Go to your database, table user, and at your line change the "roles" field from [] to [ROLE_ADMIN].
+
+You are now administrator of your website and can manage it. 
 
