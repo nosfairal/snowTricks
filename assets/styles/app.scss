@@ -1,6 +1,5 @@
 body {
-    background-color: #f9fafe;
-    padding-bottom: 4rem;
+  background-color: #f9fafe;
 }
 
 @import "~bootstrap/scss/bootstrap";
@@ -81,6 +80,9 @@ body {
   #editMedia {
     display: none;
   }
+  body {
+    padding-bottom: 4rem;
+}
 
 }
 
