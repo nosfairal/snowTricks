@@ -251,7 +251,7 @@ class TrickController extends AbstractController
                 $trickVideo->setTrick($trick);
                 $em->persist($trickVideo);
             }
-
+            $em->persist($trick);
             $em->flush();
 
 

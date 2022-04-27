@@ -81,7 +81,7 @@
 										</a>
 									</div>
 									<div>
-										<form></form>
+									<form></form>
 										{% include "picture/delete.html.twig" %}
 									</div>
 								</div>
@@ -112,12 +112,14 @@
 								{{ form_widget(form.pictures) }}
 							</div>
 							<button id="add-picture" class="add-picture" type="button" data-collection-holder-class="pictures">Ajouter une image</button>
+							<input type="hidden" id="picture-counter" value="0">
 						</div>
 						<div class="col">
 							<div id="videos" class="videos" data-prototype="{{ form_widget(form.videos.vars.prototype)|e('html_attr') }}">
 								{{ form_widget(form.videos) }}
 							</div>
 							<button id="add-video" class="add-video" type="button" data-collection-holder-class="videos">Ajouter une video</button>
+							<input type="hidden" id="video-counter" value="0">
 						</div>
 					</div>
                     <hr class="my-3"/>

@@ -5,6 +5,14 @@
 {% block content %}
 
     <section class="container text-center my-3" id="connect-form">
+        {% for rubrique, messages in app.flashes %}
+			<div class="alert alert-{{ rubrique }} alert-dismissible fade show" id="success-flash" role="alert">
+				{% for message in messages %}
+					<p>{{ message }}</p>
+				{% endfor %}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		{% endfor %}
         <div class="row">
             <div class="col">
                 <form method="post">
@@ -14,7 +22,7 @@
 
                     {% if app.user %}
                         <div class="mb-3">
-                            Vous êtes connecté.e comme {{ app.user.username }}, <a href="{{ path('app_logout') }}">Me déconnecter</a>
+                            Votre inscription a bien été validée et vous êtes connecté.e comme {{ app.user.username }}, <a href="{{ path('app_logout') }}">Me déconnecter</a>
                         </div>
                     {% endif %}
 
